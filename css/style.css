@@ -1031,7 +1031,7 @@ nav.nav-sidebar {
 	color: #F67777;
     font-size: 1em;
 }
-.login-mail input[type="text"],.login-mail input[type="password"]{
+.login-mail input[type="text"],.login-mail input[type="password"],.login-mail input[type="email"], .login-mail input[type="radio"]{
 	border: none;
 	outline:none;
 	font-size: 0.9em;
@@ -2338,4 +2338,10 @@ td.add-check a {
     background-position-x: -225px;
     background-size: 542px;
 }
+}
+
+/* Ajouts */
+
+.center {
+	text-align: center;
 }
