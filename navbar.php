@@ -50,6 +50,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </head>
 <body>
+<?php require_once('config.php') ?>
 <!--header-->
 <div class="header">
     <div class="container">
@@ -63,9 +64,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="container">
             <div class="col-sm-5 col-md-offset-2  header-login">
                 <ul>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="register.php">Register</a></li>
-                    <li><a href="checkout.html">Checkout</a></li>
+                    <?php
+                    if (internauteEstConnecteEtEstAdmin()) {
+                        echo '<li><a href="profil.php">'. $_SESSION["membre"]["pseudo"] .'</a></li>';
+                        echo '<li><a href="./admin/index.php">Administration</a></li>';
+                        echo '<li><a href="?action=deconnexion">Déconnexion</a></li>';
+                    }
+                    elseif (internauteEstConnecte()) {
+                        echo '<li><a href="profil.php">'. $_SESSION["membre"]["prenom"] .'</a></li>';
+                        echo '<li><a href="?action=deconnexion">Déconnexion</a></li>';
+                    }
+                    else {
+                        echo '<li><a href="login.php">Se Connecter</a></li>';
+                        echo '<li><a href="register.php">S\'inscrire</a></li>';
+                    }
+
+                    ?>
                 </ul>
             </div>
 
@@ -270,7 +284,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <!----->
 
                 <!---pop-up-box---->
-                <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
+                <link href="./css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
                 <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
                 <!---//pop-up-box---->
                 <div id="small-dialog" class="mfp-hide">

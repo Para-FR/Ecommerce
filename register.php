@@ -1,11 +1,9 @@
 <?php require_once('config.php') ?>
-<?php require_once('navbar.php') ?>
 <?php
-if (isset($_GET['action']) && $_GET['action']=="deconnexion"){
-    session_destroy();
+if (internauteEstConnecte()){
+    header('Location:profil.php');
 }
 if ($_POST){
-    var_dump($_POST['pseudo']);
     $verif_caracters = preg_match('#^[a-zA-Z0-9._-]+$#', $_POST['pseudo']);
     if (!$verif_caracters && (strlen($_POST['pseudo']<1) || strlen($_POST['pseudo']>20))){
         $contenu .= '<strong>Erreur !</strong><br> Le champ Pseudo doit contenir entre 1 et 20 caractères alphanumériques.';
@@ -14,16 +12,18 @@ if ($_POST){
         if ($membre->num_rows>0) {
             $contenu .= '<strong>Erreur !</strong><br> Le Pseudo existe déjà';
         }else{
-            //$mdp_crypt = sha1($_POST['mdp']);
+            $mdp_crypt = sha1($_POST['mdp']);
             foreach ($_POST as $indice => $valeur){
                 $_POST[$indice] = htmlentities(addslashes($valeur));
             }
             executeRequete("INSERT INTO membre (pseudo, mdp, nom, prenom, email, civilite, ville, code_postal, adresse) 
-            VALUES('$_POST[pseudo]', '$_POST[mdp]', '$_POST[nom]', '$_POST[prenom]', '$_POST[email]', '$_POST[civilite]', '$_POST[ville]', '$_POST[cp]', '$_POST[adresse]')");
+            VALUES('$_POST[pseudo]', '$mdp_crypt', '$_POST[nom]', '$_POST[prenom]', '$_POST[email]', '$_POST[civilite]', '$_POST[ville]', '$_POST[cp]', '$_POST[adresse]')");
             $succes .= '<strong>Validé !</strong><br> Vous êtes désormais inscrit <br> <a href="login.php">Connectez vous</a>';
         }
     }
 }?>
+<?php require_once('navbar.php');
+?>
     <!--banner-->
     <div class="banner-top">
         <div class="container">
@@ -59,15 +59,15 @@ if ($_POST){
                     </div>
                     <div class="login-mail">
                         <input name="mdp" type="password" placeholder="Mot de passe" required="">
-                        <i class="fa fa-unlock-alt"></i>
+                        <i class="glyphicon fa-unlock-alt"></i>
                     </div>
                     <div class="login-mail">
                         <input name="nom" type="text" placeholder="Nom" required="">
-                        <i class="glyphicon glyphicon-user"></i>
+                        <i class="fa fa-vcard"></i>
                     </div>
                     <div class="login-mail">
                         <input name="prenom" type="text" placeholder="Prénom" required="">
-                        <i class="fa fa-vcard"></i>
+                        <i class="fa glyphicon-user"></i>
                     </div>
                     <div class="login-mail">
                         <input name="email" type="email" placeholder="Adresse mail" required="">

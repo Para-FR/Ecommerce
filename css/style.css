@@ -2345,3 +2345,15 @@ td.add-check a {
 .center {
 	text-align: center;
 }
+
+.padtop20px {
+	padding-top: 20px !important;
+}
+
+.disabled[disabled], .disabled[readonly], fieldset[disabled] .disabled {
+	background-color: #eee;
+	opacity: 1;
+}
+.disabled[disabled], fieldset[disabled] .disabled {
+	cursor: not-allowed;
+}

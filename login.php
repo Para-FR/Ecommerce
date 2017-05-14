@@ -1,17 +1,15 @@
 <?php require_once('config.php') ?>
-<?php require_once('navbar.php') ?>
 <?php
-if (isset($_GET['action']) && $_GET['action']=="deconnexion"){
-	session_destroy();
-}
 if (internauteEstConnecte()){
 	header('Location:profil.php');
 }
 if ($_POST) {
+	var_dump(sha1('quad13'));
+	var_dump(sha1('quad13'));
 	$resultat = executeRequete("SELECT * FROM membre WHERE pseudo='$_POST[pseudo]'");
 	if ($resultat->num_rows != 0) {
 		$membre = $resultat->fetch_assoc();
-		if ($membre['mdp'] == $_POST['mdp']) {
+		if ($membre['mdp'] == sha1($_POST['mdp'])) {
 			foreach ($membre as $indice => $element) {
 				if ($indice != 'mdp') {
 					$_SESSION['membre'][$indice] = $element;
@@ -19,13 +17,14 @@ if ($_POST) {
 			}
 			header("location:profil.php");
 		} else {
-			$contenu .= '<strong>Erreur !</strong><br> Mot de passe incorrect';
+			$contenu = '<strong>Erreur !</strong><br> Combinaison Pseudo et Mot de Passe incorrect.';
 		}
 	}else{
-		$contenu .= '<strong>Erreur !</strong><br> Pseudo incorrect';
+		$contenu = '<strong>Erreur !</strong><br> Combinaison Pseudo et Mot de Passe incorrect.';
 	}
 }
 ?>
+<?php require_once('navbar.php') ?>
 <!--banner-->
 <div class="banner-top">
 	<div class="container">
@@ -37,7 +36,6 @@ if ($_POST) {
 <!--login-->
 <div class="container">
 		<div class="login">
-		<?php var_dump($contenu);?>
 			<form method="post" action="#">
 			<div class="col-md-6 login-do">
 				<div class="login-mail">
@@ -48,9 +46,7 @@ if ($_POST) {
 					<input name="mdp" type="password" placeholder="Mot de passe" required="">
 					<i class="fa fa-unlock-alt"></i>
 				</div>
-				   <a class="news-letter " href="#">
-						 <label class="checkbox1"><input type="checkbox" name="checkbox" ><i> </i>Forget Password</label>
-					   </a>
+				<hr>
 				<label class="hvr-skew-backward">
 					<input type="submit" value="Se connecter">
 				</label>
