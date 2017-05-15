@@ -1,68 +1,48 @@
-<?php require_once('config.php') ?>
-<?php
-function do_action($action)
-{
-
-    if ($action == 'supprimer') {
-        $element = $_GET['element'];
-
-        if (!empty($element)) {
-            executeRequete("DELETE FROM membre WHERE id_membre=$element");
-            $suppression = '<strong>Supprimé !</strong><br> Utilisateur Supprimé';
-            return $suppression;
-        }
-    } else {
-        $suppression = '';
-        return $suppression;
-    }
-}
-
-?>
-
+<?php require_once('../../includes/config.php') ?>
 <?php
 
-if (isset($_POST['sub_admin'])) {
-    $verif_caracters = preg_match('#^[a-zA-Z0-9._-]+$#', $_POST['pseudo_admin']);
-    if (!$verif_caracters && (strlen($_POST['pseudo_admin'] < 1) || strlen($_POST['pseudo_admin'] > 20))) {
-        $contenu .= '<strong>Erreur !</strong><br> Le champ Pseudo doit contenir entre 1 et 20 caractères alphanumériques.';
-    } else {
-        $membre = executeRequete("SELECT * FROM membre WHERE pseudo='$_POST[pseudo_admin]'");
-        if ($membre->num_rows > 0) {
-            $contenu .= '<strong>Erreur !</strong><br> Le Pseudo existe déjà';
-        } else {
-            $statut = 1;
-            $mdp_crypt = sha1($_POST['password_admin']);
-            foreach ($_POST as $indice => $valeur) {
-                $_POST[$indice] = htmlentities(addslashes($valeur));
-            }
-            executeRequete("INSERT INTO membre (pseudo, mdp, nom, prenom, email, civilite, ville, code_postal, adresse, statut) 
+if (isset($_POST['sub_admin'])){
+        $verif_caracters = preg_match('#^[a-zA-Z0-9._-]+$#', $_POST['pseudo_admin']);
+        if (!$verif_caracters && (strlen($_POST['pseudo_admin']<1) || strlen($_POST['pseudo_admin']>20))){
+            $contenu .= '<strong>Erreur !</strong><br> Le champ Pseudo doit contenir entre 1 et 20 caractères alphanumériques.';
+        }else{
+            $membre = executeRequete("SELECT * FROM membre WHERE pseudo='$_POST[pseudo_admin]'");
+            if ($membre->num_rows>0) {
+                $contenu .= '<strong>Erreur !</strong><br> Le Pseudo existe déjà';
+            }else{
+                $statut = 1;
+                $mdp_crypt = sha1($_POST['password_admin']);
+                foreach ($_POST as $indice => $valeur){
+                    $_POST[$indice] = htmlentities(addslashes($valeur));
+                }
+                executeRequete("INSERT INTO membre (pseudo, mdp, nom, prenom, email, civilite, ville, code_postal, adresse, statut) 
             VALUES('$_POST[pseudo_admin]', '$mdp_crypt', '$_POST[first_name_admin]', '$_POST[last_name_admin]', '$_POST[email_admin]', '$_POST[civilite]', '$_POST[ville_admin]', '$_POST[cp_admin]', '$_POST[adresse_admin]', '$statut')");
-            $succes .= '<strong>Validé !</strong><br> L\'administrateur ' . $_POST['first_name_admin'] . '&nbsp;' . $_POST['last_name_admin'] . ' a bien été ajouté';
+                $succes .= '<strong>Validé !</strong><br> L\'administrateur ' . $_POST['first_name_admin'].'&nbsp;' . $_POST['last_name_admin'] . ' a bien été ajouté';
+            }
         }
-    }
 }
-if (isset($_POST['sub_user'])) {
+if (isset($_POST['sub_user'])){
     $verif_caracters = preg_match('#^[a-zA-Z0-9._-]+$#', $_POST['pseudo_user']);
-    if (!$verif_caracters && (strlen($_POST['pseudo_user'] < 1) || strlen($_POST['pseudo_user'] > 20))) {
+    if (!$verif_caracters && (strlen($_POST['pseudo_user']<1) || strlen($_POST['pseudo_user']>20))){
         $contenu .= '<strong>Erreur !</strong><br> Le champ Pseudo doit contenir entre 1 et 20 caractères alphanumériques.';
-    } else {
+    }else{
         $membre = executeRequete("SELECT * FROM membre WHERE pseudo='$_POST[pseudo_user]'");
-        if ($membre->num_rows > 0) {
+        if ($membre->num_rows>0) {
             $contenu .= '<strong>Erreur !</strong><br> Le Pseudo existe déjà';
-        } else {
+        }else{
             $statut = 0;
             $mdp_crypt = sha1($_POST['password_user']);
-            foreach ($_POST as $indice => $valeur) {
+            foreach ($_POST as $indice => $valeur){
                 $_POST[$indice] = htmlentities(addslashes($valeur));
             }
             executeRequete("INSERT INTO membre (pseudo, mdp, nom, prenom, email, civilite, ville, code_postal, adresse, statut) 
             VALUES('$_POST[pseudo_user]', '$mdp_crypt', '$_POST[first_name_user]', '$_POST[last_name_user]', '$_POST[email_user]', '$_POST[civilite]', '$_POST[ville_user]', '$_POST[cp_user]', '$_POST[adresse_user]', '$statut')");
-            $succes .= '<strong>Validé !</strong><br> L\'utilisateur ' . $_POST['first_name_user'] . '&nbsp;' . $_POST['last_name_user'] . ' a bien été ajouté';
+            $succes .= '<strong>Validé !</strong><br> L\'utilisateur ' . $_POST['first_name_user'].'&nbsp;' . $_POST['last_name_user'] . ' a bien été ajouté';
         }
     }
 }
 ?>
-<?php require_once('navbar.php'); ?>
+<?php require_once('../../includes/navbar.php'); ?>
     <!-- =============================================== -->
 
     <!-- Content Wrapper. Contains page content -->
@@ -83,7 +63,7 @@ if (isset($_POST['sub_user'])) {
         <section class="content">
 
             <!-- Default box -->
-            <div class="box boxgreen collapsed-box">
+            <div class="box boxgreen">
                 <div class="box-header with-border">
                     <h3 class="box-title">Ajouter</h3>
                     <?php if (isset($contenu) && !empty($contenu)) { ?>
@@ -230,14 +210,8 @@ if (isset($_POST['sub_user'])) {
                                                 <div class="row">
                                                     <div class="col-md-8 col-md-offset-2">
                                                         <div class="input-group">
-                                                            <input type="radio" class="radio-inline" value="m"
-                                                                   name="civilite" checked>&nbsp; <i class="fa fa-mars"
-                                                                                                     aria-hidden="true"></i>
-                                                            Monsieur
-                                                            <input type="radio" class="radio-inline" value="f"
-                                                                   name="civilite"> &nbsp;<i class="fa fa-venus"
-                                                                                             aria-hidden="true"></i>
-                                                            Madame
+                                                            <input type="radio" class="radio-inline" value="m" name="civilite" checked>&nbsp; <i class="fa fa-mars" aria-hidden="true"></i> Monsieur
+                                                            <input type="radio" class="radio-inline" value="f" name="civilite"> &nbsp;<i class="fa fa-venus" aria-hidden="true"></i> Madame
                                                         </div>
                                                     </div>
                                                 </div>
@@ -286,8 +260,7 @@ if (isset($_POST['sub_user'])) {
                                                 <div class="row">
                                                     <div class="col-md-11">
 
-                                                        <button name="sub_admin" type="submit"
-                                                                class="btn btn-success  pull-right">
+                                                        <button name="sub_admin" type="submit" class="btn btn-success  pull-right">
                                                             <i class="fa fa-check"></i> Valider
                                                         </button>
                                                     </div>
@@ -404,14 +377,8 @@ if (isset($_POST['sub_user'])) {
                                                 <div class="row">
                                                     <div class="col-md-8 col-md-offset-2">
                                                         <div class="input-group">
-                                                            <input type="radio" class="radio-inline" value="m"
-                                                                   name="civilite" checked>&nbsp; <i class="fa fa-mars"
-                                                                                                     aria-hidden="true"></i>
-                                                            Monsieur
-                                                            <input type="radio" class="radio-inline" value="f"
-                                                                   name="civilite"> &nbsp;<i class="fa fa-venus"
-                                                                                             aria-hidden="true"></i>
-                                                            Madame
+                                                            <input type="radio" class="radio-inline" value="m" name="civilite" checked>&nbsp; <i class="fa fa-mars" aria-hidden="true"></i> Monsieur
+                                                            <input type="radio" class="radio-inline" value="f" name="civilite"> &nbsp;<i class="fa fa-venus" aria-hidden="true"></i> Madame
                                                         </div>
                                                     </div>
                                                 </div>
@@ -460,8 +427,7 @@ if (isset($_POST['sub_user'])) {
                                                 <div class="row">
                                                     <div class="col-md-11">
 
-                                                        <button name="sub_user" type="submit"
-                                                                class="btn btn-success  pull-right">
+                                                        <button name="sub_user" type="submit" class="btn btn-success  pull-right">
                                                             <i class="fa fa-check"></i> Valider
                                                         </button>
                                                     </div>
@@ -485,68 +451,11 @@ if (isset($_POST['sub_user'])) {
                     </div>
                 </div>
                 <!-- /.box-body -->
-                <div class="box-footer">
-                    Footer
-                </div>
-                <!-- /.box-footer-->
             </div>
             <!-- /.box -->
-            <?php if (isset($_GET['action']) && !empty($_GET['action'])) {
-                $suppression = do_action($_GET['action']);
-            }
-            ?>
-            <!-- Default box 2 -->
-            <div class="box boxblue">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Ensemble des utilisateurs</h3>
-
-                    <?php if (isset($suppression) && !empty($suppression)) { ?>
-                        <div class="alert alert-danger center" role="alert">
-                            <?php echo $suppression ?>
-                        </div>
-                    <?php } ?>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                                title="Collapse">
-                            <i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
-                                title="Remove">
-                            <i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="box-body">
-                    <?php
-                    $return = '';
-                    $tableau = executeRequete("SELECT id_membre, pseudo, nom, prenom, email, civilite, ville, code_postal, adresse, statut FROM membre");
-                    echo '<table class="table table-bordered"> <tr class="center">';
-                    while ($colonne = $tableau->fetch_field()) {
-                        echo '<th class="center text-center">' . ucfirst($colonne->name) . '</th>';
-                    }
-                    echo '<th class="center">Modification</th>';
-                    echo '<th class="center">Suppression</th>';
-                    echo "</tr>";
-                    while ($ligne = $tableau->fetch_assoc()) {
-                        echo '<tr>';
-                        foreach ($ligne as $indice => $information) {
-                            echo '<td class="centered">' . $information . '</td>';
-                        }
-                        echo '<td class="center"><i class="fa fa-pencil" aria-hidden="true"> </i> Modification</td>';
-                        echo "<td class='center'><i class='fa fa-trash' aria-hidden='true'><a name=\'action\' href=gestion_membre.php?action=supprimer&element=" . $ligne['id_membre'] . "></i> Suppression</td>";
-                        echo '</tr>';
-                    }
-                    echo '</table>';
-                    ?>
-                </div>
-                <!-- /.box-body 2 -->
-                <div class="box-footer">
-                    <?php echo "<b>Total d'utilisateurs : </b> " . $tableau->num_rows; ?>
-                </div>
-                <!-- /.box-footer 2-->
-            </div>
-            <!-- /.box 2 -->
 
         </section>
     </div>
     <!-- /.content-wrapper -->
 
-<?php require_once('footer.php'); ?>
+<?php require_once('../../includes/footer.php'); ?>

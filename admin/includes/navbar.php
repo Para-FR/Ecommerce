@@ -1,4 +1,4 @@
-<?php require_once('../translates.php') ?>
+<?php require_once('translates.php') ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,17 +8,17 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
-    <link rel="stylesheet" href="../dist/css/master.css">
+    <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="../../dist/css/master.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -190,8 +190,8 @@
             </span>
                     </a>
                     <ul class="treeview-menu menu-open" style="display: none;">
-                        <li><a href="gestion_commandes.php"><i class="fa fa-cogs"></i> Gestion</a></li>
-                        <li><a href="#"><i class="fa fa-plus"></i> Ajouter</a></li>
+                        <li><a href="../commandes/gestion_commandes.php"><i class="fa fa-cogs"></i> Gestion</a></li>
+                        <li><a href="../commandes/ajout_commande.php"><i class="fa fa-plus"></i> Ajouter</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -202,9 +202,9 @@
             </span>
                     </a>
                     <ul class="treeview-menu menu-open" style="display: none;">
-                        <li><a href="gestion_membre.php"><i class="fa fa-cogs"></i> Gestion</a></li>
-                        <li><a href="ajout_membre.php"><i class="fa fa-plus"></i> Ajouter</a></li>
-                        <li><a href="type_compte.php"><i class="fa fa-circle-o"></i> Type de Compte</a></li>
+                        <li><a href="../membres/gestion_membre.php"><i class="fa fa-cogs"></i> Gestion</a></li>
+                        <li><a href="../membres/ajout_membre.php"><i class="fa fa-plus"></i> Ajouter</a></li>
+                        <li><a href="../membres/type_compte.php"><i class="fa fa-circle-o"></i> Type de Compte</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -215,12 +215,12 @@
             </span>
                     </a>
                     <ul class="treeview-menu menu-open" style="display: none;">
-                        <li><a href="gestion_membres.php"><i class="fa fa-cogs"></i> Gestion</a></li>
-                        <li><a href="ajout_membre.php"><i class="fa fa-plus"></i> Ajouter</a></li>
-                        <li><a href="ajout_membre.php"><i class="fa fa-circle-o"></i> Type de Produits</a></li>
+                        <li><a href="../produits/gestion_produits.php"><i class="fa fa-cogs"></i> Gestion</a></li>
+                        <li><a href="../produits/ajout_produit.php"><i class="fa fa-plus"></i> Ajouter</a></li>
+                        <li><a href="../produits/type_produit.php"><i class="fa fa-circle-o"></i> Type de Produits</a></li>
                     </ul>
                 </li>
-                <li><a href="stats.php"><i class="fa fa-line-chart"></i> <span>Statistiques</span></a></li>
+                <li><a href="../statistiques/stats.php"><i class="fa fa-line-chart"></i> <span>Statistiques</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->

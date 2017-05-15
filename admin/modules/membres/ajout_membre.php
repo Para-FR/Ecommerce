@@ -1,4 +1,4 @@
-<?php require_once('config.php') ?>
+<?php require_once('../../includes/config.php') ?>
 <?php
 
 if (isset($_POST['sub_admin'])){
@@ -42,7 +42,7 @@ if (isset($_POST['sub_user'])){
     }
 }
 ?>
-<?php require_once('navbar.php'); ?>
+<?php require_once('../../includes/navbar.php'); ?>
     <!-- =============================================== -->
 
     <!-- Content Wrapper. Contains page content -->
@@ -458,4 +458,4 @@ if (isset($_POST['sub_user'])){
     </div>
     <!-- /.content-wrapper -->
 
-<?php require_once('footer.php'); ?>
+<?php require_once('../../includes/footer.php'); ?>
