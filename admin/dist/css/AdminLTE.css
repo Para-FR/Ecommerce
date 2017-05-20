@@ -4940,3 +4940,7 @@ table.text-center th {
     white-space: normal !important;
   }
 }
+
+.paddingBot20{
+  padding-bottom: 20px;
+}

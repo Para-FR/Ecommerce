@@ -98,6 +98,9 @@ table .img-qrcode {
 .paddingTop20 {
     padding-top: 20px;
 }
+.paddingBot20 {
+    padding-bottom: 20px !important;
+}
 .borderRadius5{
     -webkit-border-radius:5px;
     -moz-border-radius:5px;

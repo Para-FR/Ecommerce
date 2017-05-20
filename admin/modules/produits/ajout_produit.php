@@ -1,47 +1,77 @@
 <?php require_once('../../includes/config.php') ?>
 <?php
+function do_action_produit($action)
+{
+    if ($action == 'ajouter') {
 
-if (isset($_POST['sub_admin'])){
-        $verif_caracters = preg_match('#^[a-zA-Z0-9._-]+$#', $_POST['pseudo_admin']);
-        if (!$verif_caracters && (strlen($_POST['pseudo_admin']<1) || strlen($_POST['pseudo_admin']>20))){
-            $contenu .= '<strong>Erreur !</strong><br> Le champ Pseudo doit contenir entre 1 et 20 caractères alphanumériques.';
-        }else{
-            $membre = executeRequete("SELECT * FROM membre WHERE pseudo='$_POST[pseudo_admin]'");
-            if ($membre->num_rows>0) {
-                $contenu .= '<strong>Erreur !</strong><br> Le Pseudo existe déjà';
-            }else{
-                $statut = 1;
-                $mdp_crypt = sha1($_POST['password_admin']);
-                foreach ($_POST as $indice => $valeur){
-                    $_POST[$indice] = htmlentities(addslashes($valeur));
-                }
-                executeRequete("INSERT INTO membre (pseudo, mdp, nom, prenom, email, civilite, ville, code_postal, adresse, statut) 
-            VALUES('$_POST[pseudo_admin]', '$mdp_crypt', '$_POST[first_name_admin]', '$_POST[last_name_admin]', '$_POST[email_admin]', '$_POST[civilite]', '$_POST[ville_admin]', '$_POST[cp_admin]', '$_POST[adresse_admin]', '$statut')");
-                $succes .= '<strong>Validé !</strong><br> L\'administrateur ' . $_POST['first_name_admin'].'&nbsp;' . $_POST['last_name_admin'] . ' a bien été ajouté';
-            }
-        }
-}
-if (isset($_POST['sub_user'])){
-    $verif_caracters = preg_match('#^[a-zA-Z0-9._-]+$#', $_POST['pseudo_user']);
-    if (!$verif_caracters && (strlen($_POST['pseudo_user']<1) || strlen($_POST['pseudo_user']>20))){
-        $contenu .= '<strong>Erreur !</strong><br> Le champ Pseudo doit contenir entre 1 et 20 caractères alphanumériques.';
-    }else{
-        $membre = executeRequete("SELECT * FROM membre WHERE pseudo='$_POST[pseudo_user]'");
-        if ($membre->num_rows>0) {
-            $contenu .= '<strong>Erreur !</strong><br> Le Pseudo existe déjà';
-        }else{
-            $statut = 0;
-            $mdp_crypt = sha1($_POST['password_user']);
-            foreach ($_POST as $indice => $valeur){
-                $_POST[$indice] = htmlentities(addslashes($valeur));
-            }
-            executeRequete("INSERT INTO membre (pseudo, mdp, nom, prenom, email, civilite, ville, code_postal, adresse, statut) 
-            VALUES('$_POST[pseudo_user]', '$mdp_crypt', '$_POST[first_name_user]', '$_POST[last_name_user]', '$_POST[email_user]', '$_POST[civilite]', '$_POST[ville_user]', '$_POST[cp_user]', '$_POST[adresse_user]', '$statut')");
-            $succes .= '<strong>Validé !</strong><br> L\'utilisateur ' . $_POST['first_name_user'].'&nbsp;' . $_POST['last_name_user'] . ' a bien été ajouté';
+        if (empty($element)) {
+            executeRequete("SELECT * FROM produit");
+            $caca = executeRequete("SELECT * FROM produit");
+            $defaut = $caca->fetch_assoc();
+            //var_dump($test);
+            $resultat_modifier = '';
+            return $defaut;
         }
     }
+
+    if ($action == 'supprimer') {
+        $element = $_GET['element'];
+
+        if (!empty($element)) {
+            executeRequete("DELETE FROM produit WHERE id_produit=$element");
+            $suppression = '<strong>Supprimé !</strong><br> Produit Supprimé';
+            return $suppression;
+        }
+    }
+    if ($action == 'modifier') {
+        $element = $_GET['element'];
+
+        if (!empty($element)) {
+            executeRequete("SELECT * FROM produit WHERE id_produit= $element");
+            $caca = executeRequete("SELECT * FROM produit WHERE id_produit = $element");
+            $test = $caca->fetch_assoc();
+            //var_dump($test);
+            $resultat_modifier = '';
+            return $test;
+        }
+    } else {
+        $resultat_modifier = '';
+        return $resultat_modifier;
+    }
+}
+// Formulaire d'ajout de Produit
+if (isset($_POST['sub_add_produit'])) {
+    $echec_ajout_produit = '';
+    $stock_produit = $_POST['stock_produit'];
+    $taille_produit = $_POST['size_produit'];
+    $prix_produit = $_POST['prix_produit'];
+    if (isset($stock_produit) && !is_numeric($stock_produit)) {
+        $echec_ajout_produit .= '<strong>Erreur !</strong><br> Le champ Stock est incorrect (Numérique)';
+    }
+    if (isset($taille_produit) && is_numeric($taille_produit)) {
+        $echec_ajout_produit .= '<strong>Erreur !</strong><br> Le champ Taille est incorrect (Numérique)';
+    }
+    if (isset($prix_produit) && !is_numeric($prix_produit)) {
+        $echec_ajout_produit .= '<strong>Erreur !</strong><br> Le champ Prix est incorrect (Numérique)';
+    }
+    if (isset($echec_ajout_produit) && empty($echec_ajout_produit)) {
+        executeRequete("INSERT INTO produit (reference, categorie, titre, taille, description, couleur, prix, stock, public )
+      VALUES ('$_POST[reference_produit]', '$_POST[categorie_produit]', '$_POST[titre_produit]', '$_POST[size_produit]', '$_POST[description_produit]', '$_POST[couleur_produit]', '$_POST[prix_produit]', '$_POST[stock_produit]', '$_POST[genre_produit]')");
+        $produitajouté = '<strong>Validé !</strong><br> Le produit ' . $_POST['titre_produit'] . '&nbsp;' . 'a bien été ajouté';
+    } else {
+        $echec_ajout_produit .= '';
+    }
+
+}
+// SI l'action est définie et qu'elle n'est pas vide
+if (isset($_GET['action']) && !empty($_GET['action'])) {
+    $test = do_action_produit($_GET['action']);
+}
+else{
+    $defaut = do_action_produit('ajouter');
 }
 ?>
+
 <?php require_once('../../includes/navbar.php'); ?>
     <!-- =============================================== -->
 
@@ -50,7 +80,7 @@ if (isset($_POST['sub_user'])){
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Gestion des Membres
+                Gestion des Produits
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -61,19 +91,19 @@ if (isset($_POST['sub_user'])){
 
         <!-- Main content -->
         <section class="content">
-
             <!-- Default box -->
-            <div class="box boxgreen">
+            <div class="box boxgreen collapsed">
                 <div class="box-header with-border">
                     <h3 class="box-title">Ajouter</h3>
-                    <?php if (isset($contenu) && !empty($contenu)) { ?>
-                        <div class="alert alert-danger center" role="alert">
-                            <?php echo $contenu ?>
+                    <?php if (isset($produitajouté) && !empty($produitajouté)) { ?>
+                        <div class="alert alert-success center" role="alert">
+                            <?php echo $produitajouté ?>
                         </div>
                     <?php } ?>
-                    <?php if (isset($succes) && !empty($succes)) { ?>
-                        <div class="alert alert-success center" role="alert">
-                            <?php echo $succes ?>
+
+                    <?php if (isset($echec_ajout_produit) && !empty($echec_ajout_produit)) { ?>
+                        <div class="alert alert-danger center" role="alert">
+                            <?php echo $echec_ajout_produit ?>
                         </div>
                     <?php } ?>
 
@@ -94,11 +124,8 @@ if (isset($_POST['sub_user'])){
                                 <div class="nav-tabs-custom">
                                     <ul class="nav nav-tabs">
                                         <li class="active">
-                                            <a href="#tab_insert_1" data-toggle="tab" aria-expanded="true">Administrateur</a>
-                                        </li>
-                                        <li class="">
-                                            <a href="#tab_insert_2" data-toggle="tab"
-                                               aria-expanded="false">Utilisateur</a>
+                                            <a href="#tab_insert_1" data-toggle="tab" aria-expanded="true"><i
+                                                    class="fa fa-plus"></i> Produit</a>
                                         </li>
                                     </ul>
                                     <div class="tab-content">
@@ -111,61 +138,6 @@ if (isset($_POST['sub_user'])){
                                                 <input type="hidden" name="csrf_sitecom_token"
                                                        value="e9475f8e53f59d2f3b2bbeab3cb56c4e">
 
-
-                                                <div class="row">
-                                                    <div
-                                                        class="col-md-10 col-md-offset-1 bg-info paddingTop20 borderRadius5">
-
-                                                        <div class="row">
-                                                            <div class="col-md-8 col-md-offset-2">
-                                                                <label><i class="fa fa-key"></i> Identifiants :</label>
-
-                                                                <div class="input-group">
-                                                                    <span class="input-group-addon" id="basic-addon1"><i
-                                                                            class="fa fa-user-circle-o"></i></span>
-                                                                    <input type="text" class="form-control"
-                                                                           id="inputpseudo_admin" name="pseudo_admin"
-                                                                           placeholder="Pseudo" value="">
-                                                                </div>
-                                                                <div class="input-error under-grouped">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="col-md-4 col-md-offset-2">
-                                                                <div class="input-group">
-                                                                    <span class="input-group-addon" id="basic-addon1"><i
-                                                                            class="fa fa-lock"></i></span>
-                                                                    <input type="password" class="form-control"
-                                                                           id="inputpassword_admin"
-                                                                           name="password_admin"
-                                                                           placeholder="Mot de passe" value="">
-                                                                </div>
-                                                                <div class="input-error under-grouped">
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <div class="input-group">
-                                                                    <span class="input-group-addon" id="basic-addon1"><i
-                                                                            class="ion ion-lock-combination"></i></span>
-                                                                    <input type="password" class="form-control"
-                                                                           id="inputconfirmation_admin"
-                                                                           name="confirmation_admin"
-                                                                           placeholder="Confirmation du mot de passe"
-                                                                           value="">
-                                                                </div>
-                                                                <div class="input-error under-grouped">
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-
-
-                                                    </div>
-                                                </div>
-
                                                 <br>
                                                 <div class="col-md-8 col-md-offset-2">
                                                     <label for="sel1">Informations générales :</label>
@@ -175,21 +147,22 @@ if (isset($_POST['sub_user'])){
                                                     <div class="col-md-4 col-md-offset-2">
                                                         <div class="input-group">
                                                             <span class="input-group-addon" id="basic-addon1"><i
-                                                                    class="fa fa-id-card-o"></i></span>
+                                                                    class="fa fa-shopping-bag"></i></span>
                                                             <input type="text" class="form-control"
-                                                                   id="inputfirst_name_admin" name="first_name_admin"
-                                                                   placeholder="Nom" value="">
+                                                                   id="inputtitre_produit" name="titre_produit"
+                                                                   placeholder="Entrez le nom du produit" value=""
+                                                                   required>
                                                         </div>
                                                         <div class="input-error under-grouped">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="input-group">
-                                                            <span class="input-group-addon" id="basic-addon1"><i
-                                                                    class="fa fa-user-circle-o"></i></span>
                                                             <input type="text" class="form-control"
-                                                                   id="inputlast_name_admin" name="last_name_admin"
-                                                                   placeholder="Prénom" value="">
+                                                                   id="inputprix_produit" name="prix_produit"
+                                                                   placeholder="Prix" value="" required>
+                                                            <span class="input-group-addon" id="basic-addon1"><i
+                                                                    class="fa fa-euro"></i></span>
                                                         </div>
                                                         <div class="input-error under-grouped">
                                                         </div>
@@ -200,152 +173,72 @@ if (isset($_POST['sub_user'])){
                                                     <div class="col-md-8 col-md-offset-2">
                                                         <div class="input-group">
                                                             <span class="input-group-addon" id="basic-addon1"><i
-                                                                    class="fa fa-envelope"></i></span>
-                                                            <input type="text" class="form-control"
-                                                                   id="inputemail_admin" name="email_admin"
-                                                                   placeholder="Adresse mail" value="">
+                                                                    class="fa fa-align-justify"></i></span>
+                                                            <textarea type="text" class="form-control"
+                                                                      id="inputdescription_produit"
+                                                                      name="description_produit"
+                                                                      placeholder="Entrez une Description ..."
+                                                                      value="" required></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-8 col-md-offset-2">
-                                                        <div class="input-group">
-                                                            <input type="radio" class="radio-inline" value="m" name="civilite" checked>&nbsp; <i class="fa fa-mars" aria-hidden="true"></i> Monsieur
-                                                            <input type="radio" class="radio-inline" value="f" name="civilite"> &nbsp;<i class="fa fa-venus" aria-hidden="true"></i> Madame
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-8 col-md-offset-2">
-                                                        <label for="sel1">Coordonnées secondaires :</label>
-
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon" id="basic-addon1"><i
-                                                                    class="fa fa-home"></i></span>
-                                                            <input type="text" class="form-control"
-                                                                   id="inputadresse_admin" name="adresse_admin"
-                                                                   placeholder="Adresse" value="">
-                                                        </div>
-                                                        <div class="input-error under-grouped">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                                 <div class="row">
                                                     <div class="col-md-4 col-md-offset-2">
                                                         <div class="input-group">
                                                             <span class="input-group-addon" id="basic-addon1"><i
-                                                                    class="fa fa-envelope"></i></span>
-                                                            <input type="text" class="form-control" id="inputcp_admin"
-                                                                   name="cp_admin" placeholder="Code postal" value="">
-                                                        </div>
-                                                        <div class="input-error under-grouped">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon" id="basic-addon1"><i
-                                                                    class="fa fa-institution"></i></span>
+                                                                    class="fa fa-barcode"></i></span>
                                                             <input type="text" class="form-control"
-                                                                   id="inputville_admin" name="ville_admin"
-                                                                   placeholder="Ville" value="">
+                                                                   id="inputreference_produit"
+                                                                   name="reference_produit"
+                                                                   placeholder="Référence Produit" value="" required>
                                                         </div>
                                                         <div class="input-error under-grouped">
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <hr>
-                                                <div class="row">
-                                                    <div class="col-md-11">
-
-                                                        <button name="sub_admin" type="submit" class="btn btn-success  pull-right">
-                                                            <i class="fa fa-check"></i> Valider
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-
-                                            </form>
-                                        </div>
-                                        <!-- /.tab-pane AEROPORT -->
-                                        <div class="tab-pane" id="tab_insert_2">
-
-                                            <br>
-                                            <form action="#"
-                                                  class="myform" method="post" accept-charset="utf-8">
-                                                <input type="hidden" name="csrf_sitecom_token"
-                                                       value="e9475f8e53f59d2f3b2bbeab3cb56c4e">
-
-
-                                                <div class="row">
-                                                    <div
-                                                        class="col-md-10 col-md-offset-1 bg-info paddingTop20 borderRadius5">
-
-                                                        <div class="row">
-                                                            <div class="col-md-8 col-md-offset-2">
-                                                                <label><i class="fa fa-key"></i> Identifiants :</label>
-
-                                                                <div class="input-group">
-                                                                    <span class="input-group-addon" id="basic-addon1"><i
-                                                                            class="fa fa-user-circle-o"></i></span>
-                                                                    <input type="text" class="form-control"
-                                                                           id="inputpseudo_user" name="pseudo_user"
-                                                                           placeholder="Pseudo" value="">
-                                                                </div>
-                                                                <div class="input-error under-grouped">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="col-md-4 col-md-offset-2">
-                                                                <div class="input-group">
-                                                                    <span class="input-group-addon" id="basic-addon1"><i
-                                                                            class="fa fa-lock"></i></span>
-                                                                    <input type="password" class="form-control"
-                                                                           id="inputpassword_user"
-                                                                           name="password_user"
-                                                                           placeholder="Mot de passe" value="">
-                                                                </div>
-                                                                <div class="input-error under-grouped">
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <div class="input-group">
-                                                                    <span class="input-group-addon" id="basic-addon1"><i
-                                                                            class="ion ion-lock-combination"></i></span>
-                                                                    <input type="password" class="form-control"
-                                                                           id="inputconfirmation_user"
-                                                                           name="confirmation_user"
-                                                                           placeholder="Confirmation du mot de passe"
-                                                                           value="">
-                                                                </div>
-                                                                <div class="input-error under-grouped">
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-
-
-                                                    </div>
-                                                </div>
-
-                                                <br>
                                                 <div class="col-md-8 col-md-offset-2">
-                                                    <label for="sel1">Informations générales :</label>
+                                                    <label for="sel1">Informations secondaires :</label>
                                                 </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-4 col-md-offset-2">
+                                                        <select name="genre_produit" class="form-control" required>
+                                                            <option value="h">Homme</option>
+                                                            <option value="f">Femme</option>
+                                                            <option value="mixte">Mixte</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <select name="categorie_produit" class="form-control" required>
+                                                            <?php
+                                                            $tableau = $bdd->query("SELECT name_type FROM type_produit");
+                                                            foreach ($tableau as $m => $value) {
+                                                                ?>
+                                                                <option
+                                                                    value="<?php echo $value['name_type'] ?><?php if ($defaut['categorie'] == $value['name_type']) {
+                                                                        echo 'selected';
+                                                                    } ?>"><?php echo $value['name_type'] ?></option>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+
+                                                    </div>
+
+                                                </div>
+                                                <br/>
 
                                                 <div class="row">
                                                     <div class="col-md-4 col-md-offset-2">
                                                         <div class="input-group">
                                                             <span class="input-group-addon" id="basic-addon1"><i
-                                                                    class="fa fa-id-card-o"></i></span>
+                                                                    class="fa fa-tags"></i></span>
                                                             <input type="text" class="form-control"
-                                                                   id="inputfirst_name_user" name="first_name_user"
-                                                                   placeholder="Nom" value="">
+                                                                   id="input_size_produit"
+                                                                   name="size_produit"
+                                                                   placeholder="Taille Disponibles ex : S, M ..."
+                                                                   value="" required>
                                                         </div>
                                                         <div class="input-error under-grouped">
                                                         </div>
@@ -353,46 +246,10 @@ if (isset($_POST['sub_user'])){
                                                     <div class="col-md-4">
                                                         <div class="input-group">
                                                             <span class="input-group-addon" id="basic-addon1"><i
-                                                                    class="fa fa-user-circle-o"></i></span>
-                                                            <input type="text" class="form-control"
-                                                                   id="inputlast_name_user" name="last_name_user"
-                                                                   placeholder="Prénom" value="">
-                                                        </div>
-                                                        <div class="input-error under-grouped">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-8 col-md-offset-2">
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon" id="basic-addon1"><i
-                                                                    class="fa fa-envelope"></i></span>
-                                                            <input type="text" class="form-control"
-                                                                   id="inputemail_user" name="email_user"
-                                                                   placeholder="Adresse mail" value="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-8 col-md-offset-2">
-                                                        <div class="input-group">
-                                                            <input type="radio" class="radio-inline" value="m" name="civilite" checked>&nbsp; <i class="fa fa-mars" aria-hidden="true"></i> Monsieur
-                                                            <input type="radio" class="radio-inline" value="f" name="civilite"> &nbsp;<i class="fa fa-venus" aria-hidden="true"></i> Madame
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-8 col-md-offset-2">
-                                                        <label for="sel1">Coordonnées secondaires :</label>
-
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon" id="basic-addon1"><i
-                                                                    class="fa fa-home"></i></span>
-                                                            <input type="text" class="form-control"
-                                                                   id="inputadresse_user" name="adresse_user"
-                                                                   placeholder="Adresse" value="">
+                                                                    class="fa fa-cubes"></i></span>
+                                                            <input type="number" class="form-control"
+                                                                   id="input_stock_produit" name="stock_produit"
+                                                                   placeholder="Stock" value="" required>
                                                         </div>
                                                         <div class="input-error under-grouped">
                                                         </div>
@@ -401,43 +258,44 @@ if (isset($_POST['sub_user'])){
 
                                                 <div class="row">
                                                     <div class="col-md-4 col-md-offset-2">
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon" id="basic-addon1"><i
-                                                                    class="fa fa-envelope"></i></span>
-                                                            <input type="text" class="form-control" id="inputcp_user"
-                                                                   name="cp_user" placeholder="Code postal" value="">
-                                                        </div>
-                                                        <div class="input-error under-grouped">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputFile">Image du Produit</label>
+                                                            <input name="photo_produit" type="file" id="photo_produit">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon" id="basic-addon1"><i
-                                                                    class="fa fa-institution"></i></span>
-                                                            <input type="text" class="form-control"
-                                                                   id="inputville_user" name="ville_user"
-                                                                   placeholder="Ville" value="">
-                                                        </div>
-                                                        <div class="input-error under-grouped">
-                                                        </div>
+                                                        <select name="couleur_produit" class="form-control">
+                                                            <?php
+                                                            $tableau = $bdd->query("SELECT produit_couleur FROM couleur_produit");
+                                                            foreach ($tableau as $m => $value) {
+                                                                ?>
+                                                                <option
+                                                                    value="<?php echo $value['produit_couleur'] ?><?php if ($defaut['couleur'] == $value['produit_couleur']) {
+                                                                        echo 'selected';
+                                                                    } ?>"><?php echo $value['produit_couleur'] ?></option>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+
                                                     </div>
+
                                                 </div>
 
                                                 <hr>
                                                 <div class="row">
                                                     <div class="col-md-11">
 
-                                                        <button name="sub_user" type="submit" class="btn btn-success  pull-right">
-                                                            <i class="fa fa-check"></i> Valider
+                                                        <button name="sub_add_produit" type="submit"
+                                                                class="btn btn-success  pull-right">
+                                                            <i class="fa fa-check"></i> Ajouter
                                                         </button>
                                                     </div>
                                                 </div>
 
 
                                             </form>
-
                                         </div>
-
                                     </div>
                                     <!-- /.tab-content -->
                                 </div>
@@ -451,8 +309,13 @@ if (isset($_POST['sub_user'])){
                     </div>
                 </div>
                 <!-- /.box-body -->
+                <div class="box-footer">
+                    Footer
+                </div>
+                <!-- /.box-footer-->
             </div>
             <!-- /.box -->
+
 
         </section>
     </div>
