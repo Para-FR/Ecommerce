@@ -1,5 +1,45 @@
 <?php require_once('../../includes/config.php') ?>
+<?php
+function do_action_commandes($action)
+{
+    if ($action == 'ajouter') {
 
+        if (empty($element)) {
+            executeRequete("SELECT * FROM produit");
+            $caca = executeRequete("SELECT * FROM produit");
+            $defaut = $caca->fetch_assoc();
+            //var_dump($test);
+            $resultat_modifier = '';
+            return $defaut;
+        }
+    }
+
+    if ($action == 'supprimer') {
+        $element = $_GET['element'];
+
+        if (!empty($element)) {
+            executeRequete("DELETE FROM produit WHERE id_produit=$element");
+            $suppression = '<strong>Supprimé !</strong><br> Produit Supprimé';
+            return $suppression;
+        }
+    }
+    if ($action == 'modifier') {
+        $element = $_GET['element'];
+
+        if (!empty($element)) {
+            executeRequete("SELECT * FROM produit WHERE id_produit= $element");
+            $caca = executeRequete("SELECT * FROM produit WHERE id_produit = $element");
+            $test = $caca->fetch_assoc();
+            //var_dump($test);
+            $resultat_modifier = '';
+            return $test;
+        }
+    } else {
+        $resultat_modifier = '';
+        return $resultat_modifier;
+    }
+}
+?>
 <?php
 
 if (isset($_POST['sub_admin'])) {
