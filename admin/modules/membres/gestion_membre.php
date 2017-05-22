@@ -45,8 +45,8 @@ if (isset($_POST['sub_admin'])) {
             foreach ($_POST as $indice => $valeur) {
                 $_POST[$indice] = htmlentities(addslashes($valeur));
             }
-            executeRequete("INSERT INTO membre (pseudo, mdp, nom, prenom, email, civilite, ville, code_postal, adresse, statut) 
-            VALUES('$_POST[pseudo_admin]', '$mdp_crypt', '$_POST[first_name_admin]', '$_POST[last_name_admin]', '$_POST[email_admin]', '$_POST[civilite]', '$_POST[ville_admin]', '$_POST[cp_admin]', '$_POST[adresse_admin]', '$statut')");
+            executeRequete("INSERT INTO membre (pseudo, mdp, mdp_confirm, nom, prenom, email, civilite, ville, code_postal, adresse, statut) 
+            VALUES('$_POST[pseudo_admin]', '$mdp_crypt', '$mdp_crypt', '$_POST[first_name_admin]', '$_POST[last_name_admin]', '$_POST[email_admin]', '$_POST[civilite]', '$_POST[ville_admin]', '$_POST[cp_admin]', '$_POST[adresse_admin]', '$statut')");
             $succes .= '<strong>Validé !</strong><br> L\'administrateur ' . $_POST['first_name_admin'] . '&nbsp;' . $_POST['last_name_admin'] . ' a bien été ajouté';
         }
     }

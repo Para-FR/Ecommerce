@@ -426,8 +426,37 @@ a.link-step.text-step {
 .boxred {
     border-top: 3px solid #d51a33 !important;
 }
+.boxazur {
+    border-top: 3px solid #009393 !important;
+}
 
 .boxblue {
     border-top: 3px solid #1198ff !important;
+}
+.bg-bleu_azur {
+    background-color: #00585F !important;
+    color: #fff;
+}
+.bg-bleu_azur2 {
+    background-color: #009393 !important;
+    color: #fff;
+}
+.bg-creme {
+    background-color: #cecb9a !important;
+    color: #fff;
+}
+.bg-orange2 {
+    background-color: #FF3800 !important;
+    color: #fff;
+}
+
+.btn-azur {
+    color: #fff;
+    background-color: #009393;
+    border-color: #007676;
+}
+
+.pad5 {
+    padding: 5px;
 }
 

@@ -67,7 +67,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <?php
                     if (internauteEstConnecteEtEstAdmin()) {
                         echo '<li><a href="profil.php">'. $_SESSION["membre"]["pseudo"] .'</a></li>';
-                        echo '<li><a href="./admin/index.php">Administration</a></li>';
+                        echo '<li><a href="./admin/modules/index/index.php">Administration</a></li>';
                         echo '<li><a href="?action=deconnexion">Déconnexion</a></li>';
                     }
                     elseif (internauteEstConnecte()) {
@@ -254,7 +254,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <li><a class="color3" href="product.html">Sale</a></li>
                             <li><a class="color4" href="404.html">About</a></li>
                             <li><a class="color5" href="typo.html">Short Codes</a></li>
-                            <li><a class="color6" href="contact.html">Contact</a></li>
+                            <li><a class="color6" href="contact.php">Contact</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
 

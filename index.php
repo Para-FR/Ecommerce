@@ -6,22 +6,13 @@
         <div class="container">
             <section class="rw-wrapper">
                 <h1 class="rw-sentence">
-                    <span>Fashion &amp; Beauty</span>
-                    <div class="rw-words rw-words-1">
-                        <span>Beautiful Designs</span>
-                        <span>Sed ut perspiciatis</span>
-                        <span> Totam rem aperiam</span>
-                        <span>Nemo enim ipsam</span>
-                        <span>Temporibus autem</span>
-                        <span>intelligent systems</span>
-                    </div>
+                    <span>Bientôt l'été !</span>
+
                     <div class="rw-words rw-words-2">
-                        <span>We denounce with right</span>
-                        <span>But in certain circum</span>
-                        <span>Sed ut perspiciatis unde</span>
-                        <span>There are many variation</span>
-                        <span>The generated Lorem Ipsum</span>
-                        <span>Excepteur sint occaecat</span>
+                        <span>Destockage, jusqu'a -50% !</span>
+                        <span>Nouvelles Collections</span>
+                        <span>Fabrication Artisanale</span>
+                        <span>Nouvelle collection de maillots</span>
                     </div>
                 </h1>
             </section>
@@ -34,47 +25,46 @@
                 <div class="col-md-6 col-md">
                     <div class="col-1">
                         <a href="single.html" class="b-link-stroke b-animate-go  thickbox">
-                            <img src="images/pi.jpg" class="img-responsive" alt=""/>
-                            <div class="b-wrapper1 long-img"><p class="b-animate b-from-right    b-delay03 ">Lorem
-                                    ipsum</p><label class="b-animate b-from-right    b-delay03 "></label>
-                                <h3 class="b-animate b-from-left    b-delay03 ">Trendy</h3></div>
+                            <img src="images/alessandra-ambrosio.jpg" class="img-responsive" alt=""/>
+                            <div class="b-wrapper1 long-img"><p class="b-animate b-from-right    b-delay03 ">Mannequin</p><label class="b-animate b-from-right    b-delay03 "></label>
+                                <h3 class="b-animate b-from-left    b-delay03 ">Alessandra </h3></div>
                         </a>
 
                         <!---<a href="single.html"><img src="images/pi.jpg" class="img-responsive" alt=""></a>-->
                     </div>
                     <div class="col-2">
-                        <span>Hot Deal</span>
-                        <h2><a href="single.html">Luxurious &amp; Trendy</a></h2>
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
-                            classical Latin literature from 45 BC, making it over 2000 years</p>
-                        <a href="single.html" class="buy-now">Buy Now</a>
+                        <span>Interview</span>
+                        <h2>Alessandra Ambrosio</h2>
+                        <p>Alessandra Ambrosio. La belle mannequin a fait de nombreuses publicités avec Cristiano Ronaldo, et des rumeurs sont sorties
+                        </p>
+                        <a href="#" class="buy-now">Découvrir !</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-md1">
                     <div class="col-3">
                         <a href="single.html"><img src="images/pi1.jpg" class="img-responsive" alt="">
                             <div class="col-pic">
-                                <p>Lorem Ipsum</p>
+                                <p>Collection</p>
                                 <label></label>
-                                <h5>For Men</h5>
+                                <h5>Homme</h5>
                             </div>
                         </a>
                     </div>
                     <div class="col-3">
                         <a href="single.html"><img src="images/pi2.jpg" class="img-responsive" alt="">
                             <div class="col-pic">
-                                <p>Lorem Ipsum</p>
+                                <p>Collection</p>
                                 <label></label>
-                                <h5>For Kids</h5>
+                                <h5>Enfants</h5>
                             </div>
                         </a>
                     </div>
                     <div class="col-3">
                         <a href="single.html"><img src="images/pi3.jpg" class="img-responsive" alt="">
                             <div class="col-pic">
-                                <p>Lorem Ipsum</p>
+                                <p>Collection</p>
                                 <label></label>
-                                <h5>For Women</h5>
+                                <h5>Femme</h5>
                             </div>
                         </a>
                     </div>

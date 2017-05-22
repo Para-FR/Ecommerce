@@ -42,17 +42,31 @@ if ($_POST) {
         $code_postal = $_POST['cp'];
         $adresse = $_POST['adresse'];
         $idmembre = $_SESSION['membre']['id_membre'];
+        $pass = $_POST['mdp'];
+        $pass_confirm = $_POST['mdp_confirm'];
+
         //$mdp_crypt = sha1($_POST['mdp']);
-        foreach ($_POST as $indice => $valeur) {
-            $_POST[$indice] = htmlentities(addslashes($valeur));
+        $membre = executeRequete("SELECT * FROM membre WHERE id_membre='$idmembre'");
+        $motdp = $membre->fetch_assoc();
+        if (empty($pass)) {
+            $mdp_crypt = $motdp['mdp'];
+        } else {
+            if ($pass == $pass_confirm) {
+                $mdp_crypt = sha1($pass);
+            } else {
+                $error .= '<strong>Erreur !</strong><br> Les mots de passe ne correspondent pas';
+            }
         }
-        executeRequete("UPDATE membre SET nom='$nom', prenom='$prenom', ville='$ville', code_postal='$code_postal', adresse='$adresse' WHERE id_membre='$idmembre'");
-        $succes .= '<strong>Effectué !</strong><br> Vos informations ont été mises à jour.';
-        $_SESSION['membre']['nom'] = $_POST['nom'];
-        $_SESSION['membre']['prenom'] = $_POST['prenom'];
-        $_SESSION['membre']['ville'] = $_POST['ville'];
-        $_SESSION['membre']['code_postal'] = $_POST['cp'];
-        $_SESSION['membre']['adresse'] = $_POST['adresse'];
+        if (isset($error) && empty($error)){
+            executeRequete("UPDATE membre SET mdp='$mdp_crypt',mdp_confirm='$mdp_crypt',nom='$nom', prenom='$prenom', ville='$ville', code_postal='$code_postal', adresse='$adresse' WHERE id_membre='$idmembre'");
+            $succes .= '<strong>Effectué !</strong><br> Vos informations ont été mises à jour.';
+            $_SESSION['membre']['nom'] = $_POST['nom'];
+            $_SESSION['membre']['prenom'] = $_POST['prenom'];
+            $_SESSION['membre']['ville'] = $_POST['ville'];
+            $_SESSION['membre']['code_postal'] = $_POST['cp'];
+            $_SESSION['membre']['adresse'] = $_POST['adresse'];
+        }
+
     }
 
 }
@@ -64,6 +78,7 @@ if ($_POST) {
         <h1>Profil</h1>
         <em></em>
         <h2><a href="index.php">Accueil</a><label>/</label>Profil</h2>
+
     </div>
 </div>
 <div class="container">
@@ -114,9 +129,12 @@ if ($_POST) {
                     <i class="fa fa-user-circle-o"></i>
                 </div>
                 <div class="login-mail">
-                    <input class="disabled" name="mdp" type="password" value="Entrez votre nouveau Mot de Passe"
-                           required="" disabled>
+                    <input name="mdp" type="password" placeholder="Entrez votre nouveau Mot de Passe">
                     <i class="fa fa-unlock-alt"></i>
+                </div>
+                <div class="login-mail">
+                    <input name="mdp_confirm" type="password" placeholder="Confrimez votre nouveau Mot de Passe">
+                    <i class="fa fa-lock"></i>
                 </div>
                 <div class="login-mail">
                     <input name="nom" type="text" value="<?php echo ucfirst($_SESSION['membre']['nom']) ?>"

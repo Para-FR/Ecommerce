@@ -33,7 +33,7 @@
 
     <header class="main-header">
         <!-- Logo -->
-        <a href="../../index2.html" class="logo">
+        <a href="../index/index.php" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini">Shop</span>
             <!-- logo for regular state and mobile devices -->
@@ -48,37 +48,38 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-
+            <?php $tableau = executeRequete("SELECT * FROM contact"); ?>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Messages: style can be found in dropdown.less-->
                     <li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success">4</span>
+                            <span class="label label-success"><?php echo $tableau->num_rows ?></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have 4 messages</li>
+                            <li class="header">Vous avez <?php echo $tableau->num_rows ?> messages</li>
                             <li>
                                 <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li><!-- start message -->
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="../../dist/img/user2-160x160.jpg" class="img-circle"
-                                                     alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Support Team
-                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
+                                <?php
+                                echo '<ul class="menu"><li><!-- start message -->';
+                                while ($ligne = $tableau->fetch_assoc())
+                                {
+                                    echo '<a name="attente" href="modules/support/../../../support/support_client.php?action=consulter&element='. $ligne['id_contact'].'">';
+                                    echo '<div class="pull-left">
+                                               <img src="../../dist/img/user2-160x160.jpg" class="img-circle"alt="User Image">
+                                            </div>';
+                                    echo '<h4>'. $ligne['name_contact'].'<small><i class="fa fa-clock-o"></i>'. $ligne['date_contact'].'</small></h4>';
+                                    echo '<p>'. $ligne['message_contact'].'</p>';
+
+                                }
+                                ?>
                                         </a>
                                     </li>
                                     <!-- end message -->
                                 </ul>
                             </li>
-                            <li class="footer"><a href="#">See All Messages</a></li>
+                            <li class="footer"><a href="#">Consulter tous les messages</a></li>
                         </ul>
                     </li>
                     <!-- Notifications: style can be found in dropdown.less -->
@@ -181,7 +182,7 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li class="header text-center">MENU</li>
-                <li><a href="index.php"><i class="fa fa-dashboard"></i> <span>Tableau de Bord</span></a></li>
+                <li><a href="../index/index.php"><i class="fa fa-dashboard"></i> <span>Tableau de Bord</span></a></li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-cubes"></i> <span>Commandes</span>
@@ -221,6 +222,7 @@
                     </ul>
                 </li>
                 <li><a href="../statistiques/stats.php"><i class="fa fa-line-chart"></i> <span>Statistiques</span></a></li>
+                <li><a href="../support/support_client.php"><i class="fa fa-life-ring"></i> <span>Support Client</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->

@@ -2,6 +2,16 @@
 <?php
 function do_action_commandes($action)
 {
+    if ($action == 'consulter') {
+        $element = $_GET['element'];
+        if (!empty($element)) {
+            $consult = executeRequete("select id_commande,montant,date_enregistrement,etat,nom,prenom,email,ville,code_postal,adresse
+from commande INNER JOIN membre on commande.id_membre = membre.id_membre WHERE id_commande='" . $_GET['element'] . "'");
+            $consulter = $consult->fetch_assoc();
+            return $consulter;
+
+        }
+    }
     if ($action == 'ajouter') {
 
         if (empty($element)) {
@@ -9,7 +19,6 @@ function do_action_commandes($action)
             $caca = executeRequete("SELECT * FROM produit");
             $defaut = $caca->fetch_assoc();
             //var_dump($test);
-            $resultat_modifier = '';
             return $defaut;
         }
     }
@@ -18,30 +27,36 @@ function do_action_commandes($action)
         $element = $_GET['element'];
 
         if (!empty($element)) {
-            executeRequete("DELETE FROM produit WHERE id_produit=$element");
-            $suppression = '<strong>Supprimé !</strong><br> Produit Supprimé';
+            executeRequete("DELETE FROM commande WHERE id_commande=$element");
+            $suppression = '<strong>Supprimé !</strong><br> Commande Supprimé';
             return $suppression;
         }
     }
-    if ($action == 'modifier') {
+    if ($action == 'livraison') {
         $element = $_GET['element'];
-
+        $livraison = 'commande en cours de livraison';
         if (!empty($element)) {
-            executeRequete("SELECT * FROM produit WHERE id_produit= $element");
-            $caca = executeRequete("SELECT * FROM produit WHERE id_produit = $element");
-            $test = $caca->fetch_assoc();
-            //var_dump($test);
-            $resultat_modifier = '';
-            return $test;
+            executeRequete("UPDATE commande SET etat='" . $livraison . "' WHERE id_commande='" . $_GET['element'] . "'");
         }
-    } else {
-        $resultat_modifier = '';
-        return $resultat_modifier;
+    }
+    if ($action == 'livree') {
+        $element = $_GET['element'];
+        $livree = 'commande livrée';
+        if (!empty($element)) {
+            executeRequete("UPDATE commande SET etat='" . $livree . "' WHERE id_commande='" . $_GET['element'] . "'");
+        }
+    }
+    if ($action == 'traitement') {
+        $element = $_GET['element'];
+        $traitement = 'commande en cours de traitement';
+        if (!empty($element)) {
+            executeRequete("UPDATE commande SET etat='" . $traitement . "' WHERE id_commande='" . $_GET['element'] . "'");
+        }
     }
 }
+
 ?>
 <?php
-
 if (isset($_POST['sub_admin'])) {
     $verif_caracters = preg_match('#^[a-zA-Z0-9._-]+$#', $_POST['pseudo_admin']);
     if (!$verif_caracters && (strlen($_POST['pseudo_admin'] < 1) || strlen($_POST['pseudo_admin'] > 20))) {
@@ -83,34 +98,113 @@ if (isset($_POST['sub_user'])) {
     }
 }
 ?>
+<?php if (isset($_GET['action']) && !empty($_GET['action']) && $_GET['action'] == 'supprimer') {
+    $suppression = do_action_commandes($_GET['action']);
+} ?>
+<?php if (isset($_GET['action']) && !empty($_GET['action']) && $_GET['action'] == 'livraison') {
+    $livraison = do_action_commandes($_GET['action']);
+} ?>
+<?php if (isset($_GET['action']) && !empty($_GET['action']) && $_GET['action'] == 'livree') {
+    $livree = do_action_commandes($_GET['action']);
+} ?>
+<?php if (isset($_GET['action']) && !empty($_GET['action']) && $_GET['action'] == 'traitement') {
+    $traitement = do_action_commandes($_GET['action']);
+} ?>
+<?php if (isset($_GET['action']) && !empty($_GET['action']) && $_GET['action'] == 'consulter') {
+    $consulter = do_action_commandes($_GET['action']);
+} ?>
 <?php require_once('../../includes/navbar.php'); ?>
-    <!-- =============================================== -->
+<!-- =============================================== -->
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Gestion des Membres
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li><a href="#">Examples</a></li>
-                <li class="active">Blank page</li>
-            </ol>
-        </section>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Gestion des Commandes
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Examples</a></li>
+            <li class="active">Blank page</li>
+        </ol>
+    </section>
 
-        <!-- Main content -->
-        <section class="content">
-            <!-- Default box 2 -->
-            <div class="box boxblue">
+    <!-- Main content -->
+    <section class="content">
+        <!-- Default box 2 -->
+        <div class="box boxblue">
+            <div class="box-header with-border">
+                <h3 class="box-title">Vue d'ensemble des Commandes</h3>
+                <?php if (isset($suppression) && !empty($suppression)) { ?>
+                    <div class="alert alert-danger center" role="alert">
+                        <?php echo $suppression ?>
+                    </div>
+                <?php } ?>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                            title="Collapse">
+                        <i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
+                            title="Remove">
+                        <i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <?php
+                $return = '';
+                $tableau = executeRequete("SELECT id_commande, id_membre, montant, date_enregistrement, etat FROM commande");
+                echo '<table class="table table-bordered"> <tr class="center">';
+                while ($colonne = $tableau->fetch_field()) {
+                    echo '<th class="center text-center">' . ucfirst($colonne->name) . '</th>';
+                }
+                echo '<th class="center">Action</th>';
+                echo "</tr>";
+                while ($ligne = $tableau->fetch_assoc()) {
+
+                    echo '<tr>';
+                    foreach ($ligne as $indice => $information) {
+                        echo '<td class="centered">' . $information . '</td>';
+                    }
+                    echo "<td class='center text-center'>
+    <div style=\"width:100px;\">
+        <div class=\"dropdown\">
+            <button class=\"btn btn-warning dropdown-toggle btn-xs\" type=\"button\" data-toggle=\"dropdown\"><i class='fa fa-cog'></i></button>
+            <ul class=\"dropdown-menu\">
+                <li><a name='traitement' href='gestion_commandes.php?action=traitement&element=" . $ligne['id_commande'] . "'>En cours de traitement</a></li>
+                <li><a name='livraison' href='gestion_commandes.php?action=livraison&element=" . $ligne['id_commande'] . "'>En cours de livraison</a></li>
+                <li><a name='livree' href='gestion_commandes.php?action=livree&element=" . $ligne['id_commande'] . "'>Commande livrée</a></li>
+            </ul>
+
+            <a name=\'action\' href=gestion_commandes.php?action=consulter&element=" . $ligne['id_commande'] . " class=\"btn btn-azur btn-xs\">
+            <i class=\"fa fa-eye\"></i>
+            </a>
+            <a name=\'action\' href=gestion_commandes.php?action=supprimer&element=" . $ligne['id_commande'] . " class=\"btn btn-danger btn-xs\">
+            <i class=\"fa fa-trash\"></i>
+            </a>
+        </div>
+    </div>
+</td>";
+                    echo '</tr>';
+                }
+                echo '</table>';
+                ?>
+            </div>
+            <!-- /.box-body 2 -->
+            <div class="box-footer">
+
+                <?php echo "<b>Total de commande(s) : </b> " . $tableau->num_rows; ?>
+            </div>
+            <!-- /.box-footer 2-->
+        </div>
+        <!-- /.box 2 -->
+
+        <!-- Box Consulter -->
+        <?php if (!empty($consulter)) { ?>
+            <div class="box boxazur">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Vue d'ensemble des Commandes</h3>
-                    <?php if (isset($suppression) && !empty($suppression)) { ?>
-                        <div class="alert alert-danger center" role="alert">
-                            <?php echo $suppression ?>
-                        </div>
-                    <?php } ?>
+                    <h3 class="box-title">Commande n° <?php echo $consulter['id_commande'] ?> &nbsp; Enregistrée le
+                        : <?php echo $consulter['date_enregistrement'] ?></h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
                                 title="Collapse">
@@ -121,38 +215,63 @@ if (isset($_POST['sub_user'])) {
                     </div>
                 </div>
                 <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <label><i class="fa fa-info-circle"></i> Informations:</label><br>
+                            <div class="col-md-4 bg-bleu_azur2 pad5 borderRadius5 text-center">
+                                <p><?php echo ucfirst($consulter['nom']) ?> <?php echo ucfirst($consulter['prenom']) ?></p>
+                                <p><?php echo $consulter['email'] ?></p>
+                                <p><?php echo ucfirst($consulter['adresse']) ?></p>
+                                <p><?php echo ucfirst($consulter['code_postal']) ?>
+                                    &nbsp; <?php echo ucfirst($consulter['ville']) ?></p>
+
+                            </div>
+                            <div class="col-md-4 bg-bleu_azur2 pull-right pad5 borderRadius5 text-center">
+                                <p>Etat : <br><?php echo ucfirst($consulter['etat']) ?></p>
+                            </div>
+                            <div class="input-error under-grouped">
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                     <?php
                     $return = '';
-                    $tableau = executeRequete("SELECT id_commande, id_membre, montant, date_enregistrement, etat FROM commande");
+                    $detail_commande_tableau = executeRequete("select p.id_produit, p.photo, p.titre, p.description, d.quantite, d.prix  from details_commande d INNER JOIN produit p on d.id_produit = p.id_produit WHERE id_commande='" . $_GET['element'] . "'");
                     echo '<table class="table table-bordered"> <tr class="center">';
-                    while ($colonne = $tableau->fetch_field()) {
-                        echo '<th class="center text-center">' . ucfirst($colonne->name) . '</th>';
-                    }
-                    echo '<th class="center">Modification</th>';
-                    echo '<th class="center">Suppression</th>';
-                    echo "</tr>";
-                    while ($ligne = $tableau->fetch_assoc()) {
-                        echo '<tr>';
-                        foreach ($ligne as $indice => $information) {
-                            echo '<td class="centered">' . $information . '</td>';
+                    if ($detail_commande_tableau->num_rows > 0){
+                        while ($colonne = $detail_commande_tableau->fetch_field()) {
+                            echo '<th class="center text-center">' . ucfirst($colonne->name) . '</th>';
                         }
-                        echo "<td class='center'><i class='fa fa-trash' aria-hidden='true'><a name=\'action\' href=gestion_membre.php?action=modifier&element=" . $ligne['id_commande'] . "></i> Modification</td>";
-                        echo "<td class='center'><i class='fa fa-trash' aria-hidden='true'><a name=\'action\' href=gestion_membre.php?action=supprimer&element=" . $ligne['id_commande'] . "></i> Suppression</td>";
-                        echo '</tr>';
+                    }else{
+                        echo "<div class='center'>Il n'y a aucun produit sur cette commande</div>";
                     }
-                    echo '</table>';
+
+                    echo "</tr>";
+                    while ($ligne = $detail_commande_tableau->fetch_assoc()) {
+                        echo '<tr>';
+                        foreach ($ligne as $item => $value) {
+                            echo '<td class="center">' . $value . '</td>';
+                        }
+                        echo '</tr>';
+
+                    }
+                    echo '</table>'
                     ?>
+
+                    <br>
+                    <hr>
                 </div>
                 <!-- /.box-body 2 -->
                 <div class="box-footer">
-                    <?php echo "<b>Total de commande(s) : </b> " . $tableau->num_rows; ?>
+                    <?php echo "<b>Total de produit(s) : </b> " . $detail_commande_tableau->num_rows; ?>
                 </div>
                 <!-- /.box-footer 2-->
             </div>
-            <!-- /.box 2 -->
+        <?php } ?>
+        <!-- ./ Box Consulter -->
 
-        </section>
-    </div>
-    <!-- /.content-wrapper -->
+        <!-- /.content-wrapper -->
+    </section>
+</div>
 
 <?php require_once('../../includes/footer.php'); ?>

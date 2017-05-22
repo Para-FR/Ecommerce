@@ -4,8 +4,6 @@ if (internauteEstConnecte()){
 	header('Location:profil.php');
 }
 if ($_POST) {
-	var_dump(sha1('quad13'));
-	var_dump(sha1('quad13'));
 	$resultat = executeRequete("SELECT * FROM membre WHERE pseudo='$_POST[pseudo]'");
 	if ($resultat->num_rows != 0) {
 		$membre = $resultat->fetch_assoc();
@@ -31,11 +29,17 @@ if ($_POST) {
 		<h1>Connexion</h1>
 		<em></em>
 		<h2><a href="index.php">Accueil</a><label>/</label>Connexion</h2>
+
 	</div>
 </div>
 <!--login-->
 <div class="container">
 		<div class="login">
+			<?php if (isset($contenu) && !empty($contenu)) { ?>
+				<div class="alert alert-danger center" role="alert">
+					<?php echo $contenu ?>
+				</div>
+			<?php } ?>
 			<form method="post" action="#">
 			<div class="col-md-6 login-do">
 				<div class="login-mail">
@@ -53,13 +57,13 @@ if ($_POST) {
 			</div>
 			<div class="col-md-6 login-right">
 				 <h3>Pas encore inscrit ?</h3>
-				 
-				 <p>Pellentesque neque leo, dictum sit amet accumsan non, dignissim ac mauris. Mauris rhoncus, lectus tincidunt tempus aliquam, odio 
+
+				 <p>Pellentesque neque leo, dictum sit amet accumsan non, dignissim ac mauris. Mauris rhoncus, lectus tincidunt tempus aliquam, odio
 				 libero tincidunt metus, sed euismod elit enim ut mi. Nulla porttitor et dolor sed condimentum. Praesent porttitor lorem dui, in pulvinar enim rhoncus vitae. Curabitur tincidunt, turpis ac lobortis hendrerit, ex elit vestibulum est, at faucibus erat ligula non neque.</p>
 				<a href="register.php" class=" hvr-skew-backward">S'inscrire</a>
 
 			</div>
-			
+
 			<div class="clearfix"> </div>
 			</form>
 		</div>

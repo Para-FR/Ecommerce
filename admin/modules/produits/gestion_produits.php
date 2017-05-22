@@ -299,7 +299,7 @@ if (isset($_POST['sub_modifier_produit'])) {
                                                             foreach ($tableau as $m => $value) {
                                                                 ?>
                                                                 <option
-                                                                    value="<?php echo $value['name_type'] ?><?php if ($test['categorie'] == $value['name_type']) {
+                                                                    value="<?php echo $value['name_type'] ?><?php if ($defaut['categorie'] == $value['name_type']) {
                                                                         echo 'selected';
                                                                     } ?>"><?php echo $value['name_type'] ?></option>
                                                                 <?php
@@ -353,7 +353,7 @@ if (isset($_POST['sub_modifier_produit'])) {
                                                             foreach ($tableau as $m => $value) {
                                                                 ?>
                                                                 <option
-                                                                    value="<?php echo $value['produit_couleur'] ?><?php if ($test['couleur'] == $value['produit_couleur']) {
+                                                                    value="<?php echo $value['produit_couleur'] ?><?php if ($defaut['couleur'] == $value['produit_couleur']) {
                                                                         echo 'selected';
                                                                     } ?>"><?php echo $value['produit_couleur'] ?></option>
                                                                 <?php

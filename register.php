@@ -59,7 +59,7 @@ if ($_POST){
                     </div>
                     <div class="login-mail">
                         <input name="mdp" type="password" placeholder="Mot de passe" required="">
-                        <i class="glyphicon fa-unlock-alt"></i>
+                        <i class="fa fa-unlock-alt"></i>
                     </div>
                     <div class="login-mail">
                         <input name="nom" type="text" placeholder="Nom" required="">
@@ -67,7 +67,7 @@ if ($_POST){
                     </div>
                     <div class="login-mail">
                         <input name="prenom" type="text" placeholder="Prénom" required="">
-                        <i class="fa glyphicon-user"></i>
+                        <i class="glyphicon glyphicon-user"></i>
                     </div>
                     <div class="login-mail">
                         <input name="email" type="email" placeholder="Adresse mail" required="">
