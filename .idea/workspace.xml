@@ -2,29 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0d57cee-09e7-42f1-9589-eb1381e65b8c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin/modules/commandes/mail.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin/modules/index/index.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin/modules/membres/generateur.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin/modules/support/support_client.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin/php.ini" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contact.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/php.ini" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/contact.html" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin/modules/produits/test.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/dist/css/master.css" afterPath="$PROJECT_DIR$/admin/dist/css/master.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/includes/footer.php" afterPath="$PROJECT_DIR$/admin/includes/footer.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/includes/navbar.php" afterPath="$PROJECT_DIR$/admin/includes/navbar.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/modules/commandes/gestion_commandes.php" afterPath="$PROJECT_DIR$/admin/modules/commandes/gestion_commandes.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/modules/membres/ajout_membre.php" afterPath="$PROJECT_DIR$/admin/modules/membres/ajout_membre.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/modules/membres/gestion_membre.php" afterPath="$PROJECT_DIR$/admin/modules/membres/gestion_membre.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/modules/produits/gestion_produits.php" afterPath="$PROJECT_DIR$/admin/modules/produits/gestion_produits.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/navbar.php" afterPath="$PROJECT_DIR$/admin/navbar.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/style.css" afterPath="$PROJECT_DIR$/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/login.php" afterPath="$PROJECT_DIR$/login.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/navbar.php" afterPath="$PROJECT_DIR$/navbar.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/profil.php" afterPath="$PROJECT_DIR$/profil.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/register.php" afterPath="$PROJECT_DIR$/register.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/modules/produits/ajout_produit.php" afterPath="$PROJECT_DIR$/admin/modules/produits/ajout_produit.php" />
     </list>
     <ignored path="Projet_E_Commerce.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,6 +20,24 @@
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="DockManager">
+    <window id="3">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file leaf-file-name="test.php" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/admin/modules/produits/test.php">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="924">
+                    <caret line="42" column="1" selection-start-line="16" selection-start-column="0" selection-end-line="42" selection-end-column="1" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
     <window id="2">
       <content type="file-editors">
         <state>
@@ -107,6 +105,26 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="ajout_produit.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/admin/modules/produits/ajout_produit.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="506">
+              <caret line="272" column="75" selection-start-line="272" selection-start-column="75" selection-end-line="272" selection-end-column="75" />
+              <folding>
+                <marker date="1495446502141" expanded="true" signature="187:208" ph="SELECT * FRO... produit" />
+                <marker date="1495446502141" expanded="true" signature="248:269" ph="SELECT * FRO... produit" />
+                <marker date="1495446502141" expanded="true" signature="562:599" ph="DELETE FROM " />
+                <marker date="1495446502141" expanded="true" signature="870:910" ph="SELECT * FRO... produit" />
+                <marker date="1495446502141" expanded="true" signature="958:999" ph="SELECT * FRO... produit" />
+                <marker date="1495446502141" expanded="true" signature="2107:2461" ph="INSERT INTO produit... " />
+                <marker date="1495446502141" expanded="true" signature="2563:2569" ph=" " />
+                <marker date="1495446502141" expanded="true" signature="12291:12325" ph="SELECT name_... type_produit" />
+                <marker date="1495446502141" expanded="true" signature="16534:16577" ph="SELECT produ... couleur_produit" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="profil.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/profil.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -136,11 +154,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="navbar.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="navbar.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/navbar.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="946">
-              <caret line="256" column="85" selection-start-line="256" selection-start-column="85" selection-end-line="256" selection-end-column="85" />
+            <state relative-caret-position="484">
+              <caret line="235" column="56" selection-start-line="235" selection-start-column="56" selection-end-line="235" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -308,7 +326,6 @@
         <option value="$PROJECT_DIR$/admin/includes/translates.php" />
         <option value="$PROJECT_DIR$/admin/dist/css/AdminLTE.css" />
         <option value="$PROJECT_DIR$/admin/modules/produits/type_produit.php" />
-        <option value="$PROJECT_DIR$/admin/modules/produits/ajout_produit.php" />
         <option value="$PROJECT_DIR$/admin/modules/membres/ajout_membre.php" />
         <option value="$PROJECT_DIR$/admin/modules/index.php" />
         <option value="$PROJECT_DIR$/admin/modules/produits/gestion_produits.php" />
@@ -332,6 +349,8 @@
         <option value="$PROJECT_DIR$/admin/modules/support/support_client.php" />
         <option value="$PROJECT_DIR$/admin/includes/navbar.php" />
         <option value="$PROJECT_DIR$/navbar.php" />
+        <option value="$PROJECT_DIR$/admin/modules/produits/test.php" />
+        <option value="$PROJECT_DIR$/admin/modules/produits/ajout_produit.php" />
       </list>
     </option>
   </component>
@@ -444,6 +463,10 @@
               <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="produits" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -464,6 +487,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="membres" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Ecommerce" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Ecommerce" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -602,7 +643,7 @@
       <workItem from="1494851916394" duration="10719000" />
       <workItem from="1495105170201" duration="62286000" />
       <workItem from="1495359803369" duration="2805000" />
-      <workItem from="1495363884957" duration="39795000" />
+      <workItem from="1495363884957" duration="43935000" />
     </task>
     <task id="LOCAL-00001" summary="Register + Login -&gt; Erreur Location:profil.php">
       <created>1494489552959</created>
@@ -646,17 +687,24 @@
       <option name="project" value="LOCAL" />
       <updated>1495312225097</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="VERSION 1.0 :&#10;Mise à jour : &#10; - Changement de mot de passe côté client&#10; - Profil.php&#10;&#10;Terminé : &#10;  - Gestion des Commandes&#10;  - Contact.php&#10;  - Support_Client.php&#10;  &#10;  En Cours : &#10;  - navbar.php&#10;  - footer.php&#10;  - Design Site &amp; Admin&#10;  - Gestion des Commandes&#10;  - Statistiques.php -&gt; Index.php (Dashboard)&#10;  -  Envoi notif Gestion Commande&#10;  - Triage Gestion Commande&#10;  &#10;  Ajouts : &#10;  - produits_femmes.php&#10;  - produits_hommes.php&#10;  - produits_enfants.php">
+      <created>1495412417968</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1495412417968</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="191351000" />
+    <option name="totallyTimeSpent" value="195491000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18333334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18333334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32875264" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -711,7 +759,8 @@
     <MESSAGE value="Correction : Register + Login -&gt; Erreur Location:profil.php&#10;&#10;Ajout Partie Admin&#10; - gestion_commande.php&#10; - gestion_membre.php&#10; &#10; Ajout Partie Shopin&#10; &#10;  - profil.php : Le client peut désormais actualiser ses données persos.&#10;" />
     <MESSAGE value="Ajout Gestion_Produits.php&#10;&#10;Nouvelle arborescence du Site dans la partie Admin.&#10;Nous passons maintenant par un fichier module pour chaque onglet de notre menu d'Administration.&#10;&#10;D'autres mises à jour mineures ont été faites." />
     <MESSAGE value="Terminé : &#10; - Cryptage du Mot de passe &#10; - Type Produit&#10; - Ajout Produit&#10; - Gestion Produit&#10; - Gestion Membre&#10;  &#10;  En Cours : &#10;  - navbar.php&#10;  - footer.php&#10;  - Design Site &amp; Admin&#10;  - Gestion des Commandes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Terminé : &#10; - Cryptage du Mot de passe &#10; - Type Produit&#10; - Ajout Produit&#10; - Gestion Produit&#10; - Gestion Membre&#10;  &#10;  En Cours : &#10;  - navbar.php&#10;  - footer.php&#10;  - Design Site &amp; Admin&#10;  - Gestion des Commandes" />
+    <MESSAGE value="VERSION 1.0 :&#10;Mise à jour : &#10; - Changement de mot de passe côté client&#10; - Profil.php&#10;&#10;Terminé : &#10;  - Gestion des Commandes&#10;  - Contact.php&#10;  - Support_Client.php&#10;  &#10;  En Cours : &#10;  - navbar.php&#10;  - footer.php&#10;  - Design Site &amp; Admin&#10;  - Gestion des Commandes&#10;  - Statistiques.php -&gt; Index.php (Dashboard)&#10;  -  Envoi notif Gestion Commande&#10;  - Triage Gestion Commande&#10;  &#10;  Ajouts : &#10;  - produits_femmes.php&#10;  - produits_hommes.php&#10;  - produits_enfants.php" />
+    <option name="LAST_COMMIT_MESSAGE" value="VERSION 1.0 :&#10;Mise à jour : &#10; - Changement de mot de passe côté client&#10; - Profil.php&#10;&#10;Terminé : &#10;  - Gestion des Commandes&#10;  - Contact.php&#10;  - Support_Client.php&#10;  &#10;  En Cours : &#10;  - navbar.php&#10;  - footer.php&#10;  - Design Site &amp; Admin&#10;  - Gestion des Commandes&#10;  - Statistiques.php -&gt; Index.php (Dashboard)&#10;  -  Envoi notif Gestion Commande&#10;  - Triage Gestion Commande&#10;  &#10;  Ajouts : &#10;  - produits_femmes.php&#10;  - produits_hommes.php&#10;  - produits_enfants.php" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -720,7 +769,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/admin/membres/plugins/flot/excanvas.js" />
     <entry file="file://$PROJECT_DIR$/admin/membres/dist/js/pages/dashboard.js" />
     <entry file="file://$PROJECT_DIR$/admin/dist/css/alt/AdminLTE-without-plugins.min.css">
       <provider selected="true" editor-type-id="text-editor">
@@ -797,13 +845,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
           <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="78" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/modules/produits/ajout_produit.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="205" column="0" selection-start-line="205" selection-start-column="0" selection-end-line="209" selection-end-column="65" />
         </state>
       </provider>
     </entry>
@@ -1180,31 +1221,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/modules/membres/gestion_membre.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="20" column="41" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
-          <folding>
-            <element signature="e#880#2263#0#PHP" expanded="false" />
-            <element signature="e#2264#3629#0#PHP" expanded="false" />
-            <element signature="e#3630#6262#0#PHP" expanded="false" />
-            <marker date="1495378632868" expanded="true" signature="227:262" ph="DELETE FROM " />
-            <marker date="1495378632868" expanded="true" signature="537:574" ph="SELECT * FRO... membre" />
-            <marker date="1495378632868" expanded="true" signature="622:659" ph="SELECT * FRO... membre" />
-            <marker date="1495378632868" expanded="true" signature="1276:1332" ph="SELECT * FRO... membre" />
-            <marker date="1495378632868" expanded="true" signature="1715:2076" ph="INSERT INTO membre... " />
-            <marker date="1495378632868" expanded="true" signature="2186:2192" ph=" " />
-            <marker date="1495378632868" expanded="true" signature="2656:2711" ph="SELECT * FRO... membre" />
-            <marker date="1495378632868" expanded="true" signature="3093:3447" ph="INSERT INTO membre... " />
-            <marker date="1495378632868" expanded="true" signature="3553:3559" ph=" " />
-            <marker date="1495378632868" expanded="true" signature="4091:4147" ph="SELECT * FRO... membre" />
-            <marker date="1495378632868" expanded="true" signature="4905:5395" ph="UPDATE membr... " />
-            <marker date="1495378632868" expanded="true" signature="5516:5522" ph=" " />
-            <marker date="1495378632868" expanded="true" signature="57945:58048" ph="SELECT id_me... membre" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="329">
@@ -1357,8 +1373,59 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/navbar.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="946">
-          <caret line="256" column="85" selection-start-line="256" selection-start-column="85" selection-end-line="256" selection-end-column="85" />
+        <state relative-caret-position="484">
+          <caret line="235" column="56" selection-start-line="235" selection-start-column="56" selection-end-line="235" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/modules/membres/gestion_membre.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="20" column="41" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
+          <folding>
+            <element signature="e#880#2263#0#PHP" expanded="false" />
+            <element signature="e#2264#3629#0#PHP" expanded="false" />
+            <element signature="e#3630#6262#0#PHP" expanded="false" />
+            <marker date="1495378632868" expanded="true" signature="227:262" ph="DELETE FROM " />
+            <marker date="1495378632868" expanded="true" signature="537:574" ph="SELECT * FRO... membre" />
+            <marker date="1495378632868" expanded="true" signature="622:659" ph="SELECT * FRO... membre" />
+            <marker date="1495378632868" expanded="true" signature="1276:1332" ph="SELECT * FRO... membre" />
+            <marker date="1495378632868" expanded="true" signature="1715:2076" ph="INSERT INTO membre... " />
+            <marker date="1495378632868" expanded="true" signature="2186:2192" ph=" " />
+            <marker date="1495378632868" expanded="true" signature="2656:2711" ph="SELECT * FRO... membre" />
+            <marker date="1495378632868" expanded="true" signature="3093:3447" ph="INSERT INTO membre... " />
+            <marker date="1495378632868" expanded="true" signature="3553:3559" ph=" " />
+            <marker date="1495378632868" expanded="true" signature="4091:4147" ph="SELECT * FRO... membre" />
+            <marker date="1495378632868" expanded="true" signature="4905:5395" ph="UPDATE membr... " />
+            <marker date="1495378632868" expanded="true" signature="5516:5522" ph=" " />
+            <marker date="1495378632868" expanded="true" signature="57945:58048" ph="SELECT id_me... membre" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/modules/produits/ajout_produit.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="272" column="75" selection-start-line="272" selection-start-column="75" selection-end-line="272" selection-end-column="75" />
+          <folding>
+            <marker date="1495446502141" expanded="true" signature="187:208" ph="SELECT * FRO... produit" />
+            <marker date="1495446502141" expanded="true" signature="248:269" ph="SELECT * FRO... produit" />
+            <marker date="1495446502141" expanded="true" signature="562:599" ph="DELETE FROM " />
+            <marker date="1495446502141" expanded="true" signature="870:910" ph="SELECT * FRO... produit" />
+            <marker date="1495446502141" expanded="true" signature="958:999" ph="SELECT * FRO... produit" />
+            <marker date="1495446502141" expanded="true" signature="2107:2461" ph="INSERT INTO produit... " />
+            <marker date="1495446502141" expanded="true" signature="2563:2569" ph=" " />
+            <marker date="1495446502141" expanded="true" signature="12291:12325" ph="SELECT name_... type_produit" />
+            <marker date="1495446502141" expanded="true" signature="16534:16577" ph="SELECT produ... couleur_produit" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/modules/produits/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="924">
+          <caret line="42" column="1" selection-start-line="16" selection-start-column="0" selection-end-line="42" selection-end-column="1" />
           <folding />
         </state>
       </provider>

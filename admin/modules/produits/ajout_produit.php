@@ -260,7 +260,7 @@ else{
                                                     <div class="col-md-4 col-md-offset-2">
                                                         <div class="form-group">
                                                             <label for="exampleInputFile">Image du Produit</label>
-                                                            <input name="photo_produit" type="file" id="photo_produit">
+                                                            <input name="fileToUpload" type="file" id="photo_produit">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
