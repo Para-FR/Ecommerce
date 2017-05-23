@@ -189,6 +189,7 @@ if ($_POST) {
             </div>
 
             <div class="clearfix"></div>
+            <button type="button" class="btn btn-black btn-lg" data-toggle="modal" data-target="#myModal">Supprimer mon compte</button>
         </form>
     </div>
     <hr>
