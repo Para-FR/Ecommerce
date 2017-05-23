@@ -43,12 +43,27 @@ function do_action_produit($action)
 
 if(!empty($_POST)) {
     $photo_bdd = "";
-    if(!empty($_FILES['photo_produit']['name'])) {
+    $taille_maxi = 100000000;
+    $taille = filesize($_FILES['photo_produit']['tmp_name']);
+    $extensions = array('.png', '.gif', '.jpg', '.jpeg');
+    $extension = strrchr($_FILES['photo_produit']['name'], '.');
+    $echec_ajout_produit = '';
+
+    if(!in_array($extension, $extensions)) //Si l'extension n'est pas dans le tableau
+    {
+        $erreur = 'Vous devez uploader un fichier de type png, gif, jpg, jpeg';
+    }
+    if($taille>$taille_maxi)
+    {
+        $erreur = 'Le fichier est trop gros...';
+    }
+    if(!empty($_FILES['photo_produit']['name']) && !isset($erreur)) {
         $nom_photo = $_POST['reference_produit'].'_'.$_FILES['photo_produit']['name'];
         $photo_bdd = "/Ecommerce_base/Ecommerce/upload/$nom_photo";
         $photo_dossier = $_SERVER['DOCUMENT_ROOT']."/Ecommerce_base/Ecommerce/upload/$nom_photo";
         !copy($_FILES['photo_produit']['tmp_name'], $_SERVER['DOCUMENT_ROOT']."/Ecommerce_base/Ecommerce/upload/$nom_photo");
-        echo $photo_dossier;
+    } else {
+        echo $echec_ajout_produit .= '<strong>Erreur !</strong><br> Image non uploader car trop volumineuse ou n\'est pas une image';
     }
     foreach($_POST as $indice => $valeur) {
         $_POST[$indice] = htmlEntities(addslashes($valeur));
@@ -277,7 +292,7 @@ else{
                                                     <div class="col-md-4 col-md-offset-2">
                                                         <div class="form-group">
                                                             <label for="photo_produit">Image du Produit</label>
-                                                            <input type="hidden" name="MAX_FILE_SIZE" value="1000000000">
+                                                            <input type="hidden" name="MAX_FILE_SIZE" value="100000000">
                                                             <input name="photo_produit" type="file" id="photo_produit">
                                                         </div>
                                                     </div>
