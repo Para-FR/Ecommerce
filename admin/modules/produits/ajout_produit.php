@@ -39,6 +39,22 @@ function do_action_produit($action)
         return $resultat_modifier;
     }
 }
+
+
+if(!empty($_POST)) {
+    $photo_bdd = "";
+    if(!empty($_FILES['photo_produit']['name'])) {
+        $nom_photo = $_POST['reference_produit'].'_'.$_FILES['photo_produit']['name'];
+        $photo_bdd = "/Ecommerce_base/Ecommerce/upload/$nom_photo";
+        $photo_dossier = $_SERVER['DOCUMENT_ROOT']."/Ecommerce_base/Ecommerce/upload/$nom_photo";
+        !copy($_FILES['photo_produit']['tmp_name'], $_SERVER['DOCUMENT_ROOT']."/Ecommerce_base/Ecommerce/upload/$nom_photo");
+        echo $photo_dossier;
+    }
+    foreach($_POST as $indice => $valeur) {
+        $_POST[$indice] = htmlEntities(addslashes($valeur));
+    }
+}
+
 // Formulaire d'ajout de Produit
 if (isset($_POST['sub_add_produit'])) {
     $echec_ajout_produit = '';
@@ -55,8 +71,8 @@ if (isset($_POST['sub_add_produit'])) {
         $echec_ajout_produit .= '<strong>Erreur !</strong><br> Le champ Prix est incorrect (Numérique)';
     }
     if (isset($echec_ajout_produit) && empty($echec_ajout_produit)) {
-        executeRequete("INSERT INTO produit (reference, categorie, titre, taille, description, couleur, prix, stock, public )
-      VALUES ('$_POST[reference_produit]', '$_POST[categorie_produit]', '$_POST[titre_produit]', '$_POST[size_produit]', '$_POST[description_produit]', '$_POST[couleur_produit]', '$_POST[prix_produit]', '$_POST[stock_produit]', '$_POST[genre_produit]')");
+        executeRequete("INSERT INTO produit (reference, categorie, titre, taille, description, couleur, prix, stock, public, photo )
+      VALUES ('$_POST[reference_produit]', '$_POST[categorie_produit]', '$_POST[titre_produit]', '$_POST[size_produit]', '$_POST[description_produit]', '$_POST[couleur_produit]', '$_POST[prix_produit]', '$_POST[stock_produit]', '$_POST[genre_produit]', '$photo_bdd')");
         $produitajouté = '<strong>Validé !</strong><br> Le produit ' . $_POST['titre_produit'] . '&nbsp;' . 'a bien été ajouté';
     } else {
         $echec_ajout_produit .= '';
@@ -70,6 +86,7 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 else{
     $defaut = do_action_produit('ajouter');
 }
+
 ?>
 
 <?php require_once('../../includes/navbar.php'); ?>
@@ -134,7 +151,7 @@ else{
 
                                             <br>
                                             <form action="#"
-                                                  class="myform" method="post" accept-charset="utf-8">
+                                                  class="myform" method="post" enctype="multipart/form-data">
                                                 <input type="hidden" name="csrf_sitecom_token"
                                                        value="e9475f8e53f59d2f3b2bbeab3cb56c4e">
 
@@ -259,8 +276,9 @@ else{
                                                 <div class="row">
                                                     <div class="col-md-4 col-md-offset-2">
                                                         <div class="form-group">
-                                                            <label for="exampleInputFile">Image du Produit</label>
-                                                            <input name="fileToUpload" type="file" id="photo_produit">
+                                                            <label for="photo_produit">Image du Produit</label>
+                                                            <input type="hidden" name="MAX_FILE_SIZE" value="1000000000">
+                                                            <input name="photo_produit" type="file" id="photo_produit">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
