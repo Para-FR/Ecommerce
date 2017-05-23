@@ -50,10 +50,42 @@ if ($_POST) {
 					<input name="mdp" type="password" placeholder="Mot de passe" required="">
 					<i class="fa fa-unlock-alt"></i>
 				</div>
-				<hr>
 				<label class="hvr-skew-backward">
 					<input type="submit" value="Se connecter">
-				</label>
+				</label><br><br>
+				<a class="lien-bleu" data-toggle="modal" data-target="#myModal">Mot de Passe Oublié ?</a>
+				<!-- Modal -->
+				<div class="modal fade" id="myModal" role="dialog">
+					<div class="modal-dialog">
+
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Récupération de Mot de Passe</h4>
+							</div>
+							<div class="modal-body">
+								<form action="" method="post" >
+
+									<h4>Mot de passe oublié</h4>
+
+									<p >SVP, saisissez votre E-mail.<br>Vous recevrez automatiquement un courriel contenant un nouveau mot de passe.</p>
+
+									<label for="email" >E-mail</label>
+									<input type="email" name="email" placeholder="exemple@live.fr" value="" id="email">
+
+									<input type="submit" name="send" value="Envoyer" id="send">
+									<a href="/Ecommerce-master/login.php">Annuler</a>
+
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
 			</div>
 			<div class="col-md-6 login-right">
 				 <h3>Pas encore inscrit ?</h3>

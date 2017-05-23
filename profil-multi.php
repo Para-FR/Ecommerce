@@ -81,18 +81,7 @@ if ($_POST) {
 
     </div>
 </div>
-
 <div class="container">
-    <div class="row">
-        <div class="menu bg-profil center" id="menu">
-            <ul class="list-inline">
-                <li><a href="profil"><i class="fa fa-user"></i> Profil</a></li>
-                <li><a href="suivi_des_commandes"><i class="fa fa-truck"></i> Suivi des Commandes</a></li>
-                <li><a href="historique_des_commandes"><i class="fa fa-cubes"></i> Historique des Commandes</a></li>
-                <li><a href="support_client"><i class="fa fa-life-ring"></i> Support</a></li>
-            </ul>
-        </div>
-    </div>
     <div class="login">
         <?php if (isset($error) && !empty($error)) { ?>
             <div class="alert alert-danger center" role="alert"><strong>Erreur !</strong>

@@ -223,6 +223,7 @@
                 </li>
                 <li><a href="../statistiques/stats.php"><i class="fa fa-line-chart"></i> <span>Statistiques</span></a></li>
                 <li><a href="../support/support_client.php"><i class="fa fa-life-ring"></i> <span>Support Client</span></a></li>
+                <li><a href="../../../index.php" target="_blank"><i class="fa fa-arrow-circle-right"></i> <span>Accès au Site</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->
