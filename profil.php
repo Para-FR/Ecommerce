@@ -3,6 +3,16 @@
     header('Location:register.php');
 } ?>
 <?php
+function do_action_client($action)
+{
+    if ($action == 'supprimer_compte') {
+        executeRequete("DELETE FROM membre WHERE id_membre='".$_SESSION['membre']['id_membre']."'");
+        session_destroy();
+        header('Location:index.php');
+        $suppression_user = 'Compte Supprimé';
+        return $suppression_user;
+        }
+}
 //var_dump($_SESSION['membre']['pseudo']);
 if ($_POST) {
     if (isset($_POST['nom'])) {
@@ -70,7 +80,11 @@ if ($_POST) {
     }
 
 }
+
 ?>
+<?php if (isset($_GET['action']) && !empty($_GET['action']) && $_GET['action'] == 'supprimer_compte') {
+    $suppression_user = do_action_client($_GET['action']);
+} ?>
 <?php require_once('navbar.php') ?>
 
 <div class="banner-top">
@@ -193,6 +207,27 @@ if ($_POST) {
         </form>
     </div>
     <hr>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Suppression de votre compte</h4>
+            </div>
+            <div class="modal-body">
+                <p>Vous êtes vraiment sûr(e) de vouloir supprimer votre compte ?<br/>
+                    il sera supprimé de façon définitive sans option de récupération !</p>
+                <br/>
+                <?php echo '<a name=\'action\' href="profil.php?action=supprimer_compte" class="btn btn-danger">Supprimer</a>' ?>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?php require_once('footer.php') ?>

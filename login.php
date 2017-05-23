@@ -55,6 +55,7 @@ if (isset($_POST['send'])){
 
 
 }
+
 ?>
 <?php require_once('navbar.php') ?>
 <!--banner-->
