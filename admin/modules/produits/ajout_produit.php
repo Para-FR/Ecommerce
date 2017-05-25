@@ -47,7 +47,7 @@ if(!empty($_POST)) {
         $nom_photo = $_POST['reference_produit'].'_'.$_FILES['photo_produit']['name'];
         $photo_bdd = "/Ecommerce_base/Ecommerce/upload/$nom_photo";
         $photo_dossier = $_SERVER['DOCUMENT_ROOT']."/Ecommerce_base/Ecommerce/upload/$nom_photo";
-        !copy($_FILES['photo_produit']['tmp_name'], $_SERVER['DOCUMENT_ROOT']."/Ecommerce_base/Ecommerce/upload/$nom_photo");
+        copy($_FILES['photo_produit']['tmp_name'], $_SERVER['DOCUMENT_ROOT']."/Ecommerce_base/Ecommerce/upload/$nom_photo");
         echo $photo_dossier;
     }
     foreach($_POST as $indice => $valeur) {
