@@ -1,27 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a0d57cee-09e7-42f1-9589-eb1381e65b8c" name="Default" comment="Ajout test.php">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/admin/documentation/build/include/adminlte-options.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/admin/documentation/build/include/advice.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/admin/documentation/build/include/browsers.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/admin/documentation/build/include/components.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/admin/documentation/build/include/dependencies.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/admin/documentation/build/include/download.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/admin/documentation/build/include/faq.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/admin/documentation/build/include/implementations.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/admin/documentation/build/include/introduction.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/admin/documentation/build/include/layout.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/admin/documentation/build/include/license.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/admin/documentation/build/include/plugins.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/admin/documentation/build/include/upgrade.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/admin/documentation/build/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/admin/documentation/docs.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/admin/documentation/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/admin/documentation/style.css" afterPath="" />
+    <list default="true" id="a0d57cee-09e7-42f1-9589-eb1381e65b8c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/modules/produits/ajout_produit.php" afterPath="$PROJECT_DIR$/admin/modules/produits/ajout_produit.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/modules/produits/gestion_produits.php" afterPath="$PROJECT_DIR$/admin/modules/produits/gestion_produits.php" />
     </list>
     <ignored path="Projet_E_Commerce.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -545,7 +526,7 @@
       <workItem from="1495359803369" duration="2805000" />
       <workItem from="1495363884957" duration="54444000" />
       <workItem from="1495520678615" duration="27705000" />
-      <workItem from="1495724800324" duration="2908000" />
+      <workItem from="1495724800324" duration="2981000" />
     </task>
     <task id="LOCAL-00001" summary="Register + Login -&gt; Erreur Location:profil.php">
       <created>1494489552959</created>
@@ -624,11 +605,18 @@
       <option name="project" value="LOCAL" />
       <updated>1495551491665</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="VERSION 1.0.6 : &#10;&#10;CORRECTIFS : &#10;&#10;- Ajout d'image OK sur Gestion produits.&#10;- La fonction modifier est de nouveau disponible sur gestion_produits.">
+      <created>1495727767342</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1495727767342</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="236613000" />
+    <option name="totallyTimeSpent" value="236686000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -694,7 +682,8 @@
     <MESSAGE value="VERSION 1.0.2 :&#10;&#10;AJOUTS :&#10;&#10;Profil.php :&#10; - Barre de navigation&#10; - Profil&#10; - Historique des Commandes&#10; - Suivi des Commandes&#10; - Support&#10; &#10; Login.php :&#10; &#10; - Fonction Mot de Passe oublié" />
     <MESSAGE value="Ajout fonction recup mdp" />
     <MESSAGE value="VERSION 1.0.5 : &#10;&#10;Correctif : Suprression compte membre côté client OK!" />
-    <option name="LAST_COMMIT_MESSAGE" value="VERSION 1.0.5 : &#10;&#10;Correctif : Suprression compte membre côté client OK!" />
+    <MESSAGE value="VERSION 1.0.6 : &#10;&#10;CORRECTIFS : &#10;&#10;- Ajout d'image OK sur Gestion produits.&#10;- La fonction modifier est de nouveau disponible sur gestion_produits." />
+    <option name="LAST_COMMIT_MESSAGE" value="VERSION 1.0.6 : &#10;&#10;CORRECTIFS : &#10;&#10;- Ajout d'image OK sur Gestion produits.&#10;- La fonction modifier est de nouveau disponible sur gestion_produits." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
