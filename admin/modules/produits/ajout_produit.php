@@ -40,21 +40,6 @@ function do_action_produit($action)
     }
 }
 
-
-if(!empty($_POST)) {
-    $photo_bdd = "";
-    if(!empty($_FILES['photo_produit']['name'])) {
-        $nom_photo = $_POST['reference_produit'].'_'.$_FILES['photo_produit']['name'];
-        $photo_bdd = "/Ecommerce_base/Ecommerce/upload/$nom_photo";
-        $photo_dossier = $_SERVER['DOCUMENT_ROOT']."/Ecommerce_base/Ecommerce/upload/$nom_photo";
-        copy($_FILES['photo_produit']['tmp_name'], $_SERVER['DOCUMENT_ROOT']."/Ecommerce_base/Ecommerce/upload/$nom_photo");
-        echo $photo_dossier;
-    }
-    foreach($_POST as $indice => $valeur) {
-        $_POST[$indice] = htmlEntities(addslashes($valeur));
-    }
-}
-
 // Formulaire d'ajout de Produit
 if (isset($_POST['sub_add_produit'])) {
     $echec_ajout_produit = '';
@@ -69,6 +54,33 @@ if (isset($_POST['sub_add_produit'])) {
     }
     if (isset($prix_produit) && !is_numeric($prix_produit)) {
         $echec_ajout_produit .= '<strong>Erreur !</strong><br> Le champ Prix est incorrect (Numérique)';
+    }
+
+    $photo_bdd = "";
+    $taille_maxi = 100000000;
+    $taille = filesize($_FILES['photo_produit']['tmp_name']);
+    $extensions = array('.png', '.gif', '.jpg', '.jpeg');
+    $extension = strrchr($_FILES['photo_produit']['name'], '.');
+    $echec_ajout_produit = '';
+
+    if(!in_array($extension, $extensions)) //Si l'extension n'est pas dans le tableau
+    {
+        $erreur = 'Vous devez uploader un fichier de type png, gif, jpg, jpeg';
+    }
+    if($taille>$taille_maxi)
+    {
+        $erreur = 'Le fichier est trop gros...';
+    }
+    if(!empty($_FILES['photo_produit']['name']) && !isset($erreur)) {
+        $nom_photo = $_POST['reference_produit'].'_'.$_FILES['photo_produit']['name'];
+        $photo_bdd = "./uploads/$nom_photo";
+        $photo_dossier = "../../../uploads/$nom_photo";
+        !copy($_FILES['photo_produit']['tmp_name'], "../../../uploads/$nom_photo$nom_photo");
+    } else {
+        echo $echec_ajout_produit .= '<strong>Erreur !</strong><br> Image non uploadée car trop volumineuse ou n\'est pas une image';
+    }
+    foreach($_POST as $indice => $valeur) {
+        $_POST[$indice] = htmlEntities(addslashes($valeur));
     }
     if (isset($echec_ajout_produit) && empty($echec_ajout_produit)) {
         executeRequete("INSERT INTO produit (reference, categorie, titre, taille, description, couleur, prix, stock, public, photo )

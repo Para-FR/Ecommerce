@@ -35,8 +35,25 @@ from commande INNER JOIN membre on commande.id_membre = membre.id_membre WHERE i
     if ($action == 'livraison') {
         $element = $_GET['element'];
         $livraison = 'commande en cours de livraison';
+
         if (!empty($element)) {
             executeRequete("UPDATE commande SET etat='" . $livraison . "' WHERE id_commande='" . $_GET['element'] . "'");
+            $req_info_commande_client = executeRequete("SELECT id_commande, etat, nom, prenom, email FROM commande 
+            INNER JOIN membre ON commande.id_membre = membre.id_membre WHERE id_commande='$element'");
+            $info_commande_client = $req_info_commande_client->fetch_assoc();
+            $headers  = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=utf-8';
+            $msg  =  'Bonjour '.$info_commande_client['nom']." ".$info_commande_client['prenom'].',<br />';
+            $msg .=  'Le statut de votre commande est désormais :' . $info_commande_client['etat'];
+            $msg .=  "Connectez vous pour suivre l'avancement de votre commande : <a href=\"http://ecommercemai2017:8082/login\"> ICI </a>";
+            $objet = 'Votre Commande n°' . $info_commande_client['id_commande'] .'est en cours de livraison';
+            $livraison_mail ='';
+            $mail_livraison_send = mail($info_commande_client['email'], $objet, $msg, $headers);
+            if ($mail_livraison_send){
+                $livraison_mail .= '<strong>Succès !</strong><br> Le mail a bien été envoyé au client';
+            }else{
+                $livraison_mail .= '<strong>Erreur !</strong><br> Le mail n\'a pas été envoyé';
+            }
         }
     }
     if ($action == 'livree') {
@@ -139,6 +156,12 @@ if (isset($_POST['sub_user'])) {
                 <?php if (isset($suppression) && !empty($suppression)) { ?>
                     <div class="alert alert-danger center" role="alert">
                         <?php echo $suppression ?>
+                    </div>
+                <?php } ?>
+
+                <?php if (isset($livraison_mail) && !empty($livraison_mail)) { ?>
+                    <div class="alert alert-warning center" role="alert">
+                        <?php echo $livraison_mail ?>
                     </div>
                 <?php } ?>
                 <div class="box-tools pull-right">

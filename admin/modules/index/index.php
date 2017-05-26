@@ -7,9 +7,10 @@
 $membres = executeRequete("SELECT * FROM membre");
 $produits = executeRequete("SELECT * FROM produit");
 $commandes = executeRequete("SELECT * FROM commande");
+$req_chiffre_affaire = executeRequete("SELECT SUM(`montant`) FROM commande WHERE `etat`='commande en cours de traitement' OR `etat`='commande en cours de livraison' OR `etat`='commande livrée'");
+$chiffre_affaire = $req_chiffre_affaire->fetch_assoc();
 ?>
 <?php require_once ('../../includes/navbar.php') ?>
-
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -76,7 +77,7 @@ $commandes = executeRequete("SELECT * FROM commande");
                     <!-- small box -->
                     <div class="small-box bg-orange2">
                         <div class="inner">
-                            <h3>1.780.000 €</h3>
+                            <h3><?php echo $chiffre_affaire['SUM(`montant`)'] ?> €</h3>
 
                             <p>Chiffre d'Affaires</p>
                         </div>
@@ -90,19 +91,10 @@ $commandes = executeRequete("SELECT * FROM commande");
             </div>
             <!-- /.row -->
             <!-- Main row -->
-            <div class="row">
-                <!-- Left col -->
-                <section class="col-lg-7 connectedSortable">
-
-                </section>
-                <!-- /.Left col -->
-                <!-- right col (We are only adding the ID to make the widgets sortable)-->
-                <!-- right col -->
-            </div>
-            <!-- /.row (main row) -->
 
         </section>
         <!-- /.content -->
     </div>
+
     <!-- /.content-wrapper -->
 <?php require_once ('../../includes/footer.php') ?>

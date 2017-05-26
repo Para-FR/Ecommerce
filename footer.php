@@ -1,46 +1,63 @@
 <!--//footer-->
+<?php
+    if (isset($_POST['sub_newsletter'])){
+    if (isset($_POST['input_adresse_mail']) && !empty($_POST['input_adresse_mail'])){
+        $new_mail = $_POST['input_adresse_mail'];
+        $inscrit ='';
+        if (isset($new_mail) && !empty($new_mail)){
+            $req_mail_existant = executeRequete("SELECT * FROM newsletter WHERE email_newsletter='$new_mail'");
+            if ($req_mail_existant->num_rows >0){
+                $inscrit .= '<p>Vous êtes déjà inscrit à notre Newsletter</p>';
+            }else{
+                executeRequete("INSERT INTO newsletter(email_newsletter) VALUES ('$new_mail') ");
+                $inscrit .= '<p>Vous êtes désormais inscrit</p>';
+            }
+        }
+
+    }
+    }
+?>
 <div class="footer">
     <div class="footer-middle">
         <div class="container">
             <div class="col-md-3 footer-middle-in">
                 <a href="index.php"><img src="images/log.png" alt=""></a>
-                <p>Suspendisse sed accumsan risus. Curabitur rhoncus, elit vel tincidunt elementum, nunc urna tristique nisi, in interdum libero magna tristique ante. adipiscing varius. Vestibulum dolor lorem.</p>
+                <p>Un Site Web E-Commerce</p>
             </div>
 
             <div class="col-md-3 footer-middle-in">
                 <h6>Information</h6>
                 <ul class=" in">
-                    <li><a href="404.html">About</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="#">Returns</a></li>
-                    <li><a href="contact.html">Site Map</a></li>
-                </ul>
-                <ul class="in in1">
-                    <li><a href="#">Order History</a></li>
-                    <li><a href="wishlist.html">Wish List</a></li>
-                    <li><a href="login.php">Login</a></li>
+                    <li><a href="index">Accueil</a></li>
+                    <li><a href="produits_femme">Femmes</a></li>
+                    <li><a href="produits_hommes">Hommes</a></li>
+                    <li><a href="contact.php">Contact</a></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
             <div class="col-md-3 footer-middle-in">
                 <h6>Tags</h6>
                 <ul class="tag-in">
-                    <li><a href="#">Lorem</a></li>
-                    <li><a href="#">Sed</a></li>
-                    <li><a href="#">Ipsum</a></li>
-                    <li><a href="#">Contrary</a></li>
-                    <li><a href="#">Chunk</a></li>
-                    <li><a href="#">Amet</a></li>
-                    <li><a href="#">Omnis</a></li>
+                    <?php $req_last_searchs = executeRequete("SELECT recherche_client FROM recherche ORDER BY recherche_client asc limit 10");
+
+                    while ($last_recherche = $req_last_searchs->fetch_assoc()){
+                        foreach ($last_recherche as $recherches => $recherche){
+                            echo '<li><a href="#">'.ucfirst($recherche).'</a></li>';
+                        }
+                    }
+                    ?>
                 </ul>
             </div>
             <div class="col-md-3 footer-middle-in">
                 <h6>Newsletter</h6>
-                <span>Sign up for News Letter</span>
-                <form>
-                    <input type="text" value="Enter your E-mail" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='Enter your E-mail';}">
-                    <input type="submit" value="Subscribe">
+                <span>Inscrivez vous à notre Newsletter</span>
+                <form action="#" method="post">
+                    <input name="input_adresse_mail" type="email" placeholder="Entrez votre Adresse Mail" required>
+                    <input name="sub_newsletter" type="submit" value="S'inscrire">
                 </form>
+                <?php
+                    if (isset($inscrit) && !empty($inscrit)) echo $inscrit;
+                ?>
             </div>
             <div class="clearfix"> </div>
         </div>

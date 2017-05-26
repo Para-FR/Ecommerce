@@ -3,38 +3,29 @@
     header('Location:register.php');
 } ?>
 <?php
-//var_dump($_SESSION['membre']['pseudo']);
-if ($_POST) {
-    if(!empty($_POST)) {
-        $nom_photo = '';
-        $avatar = '';
-        $photo_bdd = "";
-        $taille_maxi = 100000000;
-        $taille = filesize($_FILES['avatar']['tmp_name']);
-        $extensions = array('.png', '.gif', '.jpg', '.jpeg');
-        $extension = strrchr($_FILES['avatar']['name'], '.');
-        $echec_ajout_produit = '';
+function do_action_client($action)
+{
+    if ($action == 'supprimer_compte') {
+        executeRequete("DELETE FROM membre WHERE id_membre='".$_SESSION['membre']['id_membre']."'");
+        session_destroy();
+        header('Location:index.php');
+        $suppression_user = 'Compte Supprimé';
+        return $suppression_user;
+        }
+}
+$avatar = '';
+$idmembre = $_SESSION['membre']['id_membre'];
+$search_avatar = executeRequete("SELECT avatar FROM membre WHERE id_membre='".$idmembre."'");
+$get_avatar = $search_avatar->fetch_assoc();
+if (isset($get_avatar['avatar']) && !empty($get_avatar['avatar'])){
+    $avatar .= '<img class="center-block padbot30px" src="'. $get_avatar['avatar'].'">';
+}else{
+    $avatar .= '<img class="center-block padbot30px" src="./avatars/default.png">';
+}
 
-        if(!in_array($extension, $extensions)) //Si l'extension n'est pas dans le tableau
-        {
-            $erreur = 'Vous devez uploader un fichier de type png, gif, jpg, jpeg';
-        }
-        if($taille>$taille_maxi)
-        {
-            $erreur = 'Le fichier est trop gros...';
-        }
-        if(!empty($_FILES['avatar']['name']) && !isset($erreur)) {
-            $nom_photo = $_POST['nom'].'_'.$_FILES['avatar']['name'];
-            $photo_bdd = "./avatars/$nom_photo";
-            $photo_dossier = "./avatars/$nom_photo";
-            !copy($_FILES['avatar']['tmp_name'], "./avatars/$nom_photo");
-        } else {
-            echo $echec_ajout_produit .= '<strong>Erreur !</strong><br> Image non uploader car trop volumineuse ou n\'est pas une image';
-        }
-        foreach($_POST as $indice => $valeur) {
-            $_POST[$indice] = htmlEntities(addslashes($valeur));
-        }
-    }
+//var_dump($_SESSION['membre']['pseudo']);
+if (isset($_POST['sub_profil'])) {
+
     if (isset($_POST['nom'])) {
         if (is_numeric($_POST['nom']) || empty($_POST['nom'])) {
             $error .= '<br> Le champ nom est incorrect.';
@@ -74,7 +65,6 @@ if ($_POST) {
         $idmembre = $_SESSION['membre']['id_membre'];
         $pass = $_POST['mdp'];
         $pass_confirm = $_POST['mdp_confirm'];
-        $avatar = $_FILES['avatar']['name'];
 
         //$mdp_crypt = sha1($_POST['mdp']);
         $membre = executeRequete("SELECT * FROM membre WHERE id_membre='$idmembre'");
@@ -89,23 +79,24 @@ if ($_POST) {
             }
         }
         if (isset($error) && empty($error)){
-            executeRequete("UPDATE membre SET mdp='$mdp_crypt',mdp_confirm='$mdp_crypt',nom='$nom', prenom='$prenom', ville='$ville', code_postal='$code_postal', adresse='$adresse', avatar='$photo_bdd' WHERE id_membre='$idmembre'");
+            executeRequete("UPDATE membre SET mdp='$mdp_crypt',mdp_confirm='$mdp_crypt',nom='$nom', prenom='$prenom', ville='$ville', code_postal='$code_postal', adresse='$adresse' WHERE id_membre='$idmembre'");
             $succes .= '<strong>Effectué !</strong><br> Vos informations ont été mises à jour.';
             $_SESSION['membre']['nom'] = $_POST['nom'];
             $_SESSION['membre']['prenom'] = $_POST['prenom'];
             $_SESSION['membre']['ville'] = $_POST['ville'];
             $_SESSION['membre']['code_postal'] = $_POST['cp'];
             $_SESSION['membre']['adresse'] = $_POST['adresse'];
-
         }
 
     }
 
 }
+
 ?>
-<?php require_once('navbar.php'); ?>
-
-
+<?php if (isset($_GET['action']) && !empty($_GET['action']) && $_GET['action'] == 'supprimer_compte') {
+    $suppression_user = do_action_client($_GET['action']);
+} ?>
+<?php require_once('navbar.php') ?>
 
 <div class="banner-top">
     <div class="container">
@@ -155,19 +146,14 @@ if ($_POST) {
             }
         }
         ?>
-<?php
-        $chemin_avatar = executeRequete("SELECT avatar FROM membre WHERE id_membre=". $_SESSION['membre']['id_membre']);
-        foreach ($chemin_avatar as $value => $test) {
-            echo '<img src="'. $test['avatar']. '" style="margin-left:45%; width:100px; height:100px;"/>';
-        }
-        if (empty($test)) {
-            
-        }
-
-?>
-        <form action="#" method="post" enctype="multipart/form-data">
+        <form action="#" method="post">
             <div class="col-md-12 header-login ">
+
                 <div class="input-group col-md-6 center center-block">
+                    <?php if (isset($avatar) && !empty($avatar)){
+                        echo $avatar;
+                    }
+                     ?>
                     <input type="radio" class="radio-inline" value="m" name="civilite" <?php echo $civilitem ?>>&nbsp;
                     <i class="fa fa-mars" aria-hidden="true"></i> Monsieur
                     <input type="radio" class="radio-inline" value="f" name="civilite" <?php echo $civilitef ?>>
@@ -226,20 +212,42 @@ if ($_POST) {
                     <i class="fa fa-map-marker"></i>
                 </div>
                 <div class="login-mail">
-                    <label for="avatar">Votre avatar</label>
-                    <input name="avatar" type="file">
+                    <label for="test">Votre Avatar :</label>
+                    <input name="test" type="file" id="test">
                 </div>
             </div>
             <div class="col-md-12 login-do center">
                 <label class="hvr-skew-backward">
-                    <input type="submit" value="Mettre à jour">
+                    <input name="sub_profil" type="submit" value="Mettre à jour">
                 </label>
             </div>
 
             <div class="clearfix"></div>
+            <button type="button" class="btn btn-black btn-lg" data-toggle="modal" data-target="#myModal">Supprimer mon compte</button>
         </form>
     </div>
     <hr>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Suppression de votre compte</h4>
+            </div>
+            <div class="modal-body">
+                <p>Vous êtes vraiment sûr(e) de vouloir supprimer votre compte ?<br/>
+                    Il sera supprimé de façon définitive sans option de récupération !</p>
+                <br/>
+                <?php echo '<a name=\'action\' href="profil.php?action=supprimer_compte" class="btn btn-danger">Supprimer</a>' ?>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?php require_once('footer.php') ?>

@@ -1399,7 +1399,7 @@ ul.tag-in li a:hover{
 .footer-class a:hover{
 	color:#fff;
 }
-.footer-middle-in input[type="text"] {
+.footer-middle-in input[type="text"], .footer-middle-in input[type="email"] {
     width: 100%;
     padding: 0.5em 1em;
     margin: 0.7em 0;
@@ -2492,4 +2492,7 @@ a.lien-bleu{
 }
 a.lien-bleu:hover{
 	cursor: hand !important;
+}
+.padbot30px{
+	padding-bottom: 30px;
 }

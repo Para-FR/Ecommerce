@@ -1,3 +1,11 @@
+<?php
+if (isset($_POST['sub_recherche'])) {
+    if (isset($_POST['recherche']) && !empty($_POST['recherche'])) {
+        $recherche = $_POST['recherche'];
+        $recherche_client_final = '';
+    }
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -118,142 +126,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                         <ul class="nav navbar-nav nav_1">
-                            <li><a class="color" href="index.php">Home</a></li>
-
-                            <li class="dropdown mega-dropdown active">
-                                <a class="color1" href="#" class="dropdown-toggle" data-toggle="dropdown">Women<span
-                                        class="caret"></span></a>
-                                <div class="dropdown-menu ">
-                                    <div class="menu-top">
-                                        <div class="col1">
-                                            <div class="h_nav">
-                                                <h4>Submenu1</h4>
-                                                <ul>
-                                                    <li><a href="product.html">Accessories</a></li>
-                                                    <li><a href="product.html">Bags</a></li>
-                                                    <li><a href="product.html">Caps & Hats</a></li>
-                                                    <li><a href="product.html">Hoodies & Sweatshirts</a></li>
-
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col1">
-                                            <div class="h_nav">
-                                                <h4>Submenu2</h4>
-                                                <ul>
-                                                    <li><a href="product.html">Jackets & Coats</a></li>
-                                                    <li><a href="product.html">Jeans</a></li>
-                                                    <li><a href="product.html">Jewellery</a></li>
-                                                    <li><a href="product.html">Jumpers & Cardigans</a></li>
-                                                    <li><a href="product.html">Leather Jackets</a></li>
-                                                    <li><a href="product.html">Long Sleeve T-Shirts</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col1">
-                                            <div class="h_nav">
-                                                <h4>Submenu3</h4>
-                                                <ul>
-                                                    <li><a href="product.html">Shirts</a></li>
-                                                    <li><a href="product.html">Shoes, Boots & Trainers</a></li>
-                                                    <li><a href="product.html">Sunglasses</a></li>
-                                                    <li><a href="product.html">Sweatpants</a></li>
-                                                    <li><a href="product.html">Swimwear</a></li>
-                                                    <li><a href="product.html">Trousers & Chinos</a></li>
-
-                                                </ul>
-
-                                            </div>
-                                        </div>
-                                        <div class="col1">
-                                            <div class="h_nav">
-                                                <h4>Submenu4</h4>
-                                                <ul>
-                                                    <li><a href="product.html">T-Shirts</a></li>
-                                                    <li><a href="product.html">Underwear & Socks</a></li>
-                                                    <li><a href="product.html">Vests</a></li>
-                                                    <li><a href="product.html">Jackets & Coats</a></li>
-                                                    <li><a href="product.html">Jeans</a></li>
-                                                    <li><a href="product.html">Jewellery</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col1 col5">
-                                            <img src="images/me.png" class="img-responsive" alt="">
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="dropdown mega-dropdown active">
-                                <a class="color2" href="#" class="dropdown-toggle" data-toggle="dropdown">Men<span
-                                        class="caret"></span></a>
-                                <div class="dropdown-menu mega-dropdown-menu">
-                                    <div class="menu-top">
-                                        <div class="col1">
-                                            <div class="h_nav">
-                                                <h4>Submenu1</h4>
-                                                <ul>
-                                                    <li><a href="product.html">Accessories</a></li>
-                                                    <li><a href="product.html">Bags</a></li>
-                                                    <li><a href="product.html">Caps & Hats</a></li>
-                                                    <li><a href="product.html">Hoodies & Sweatshirts</a></li>
-
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col1">
-                                            <div class="h_nav">
-                                                <h4>Submenu2</h4>
-                                                <ul>
-                                                    <li><a href="product.html">Jackets & Coats</a></li>
-                                                    <li><a href="product.html">Jeans</a></li>
-                                                    <li><a href="product.html">Jewellery</a></li>
-                                                    <li><a href="product.html">Jumpers & Cardigans</a></li>
-                                                    <li><a href="product.html">Leather Jackets</a></li>
-                                                    <li><a href="product.html">Long Sleeve T-Shirts</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col1">
-                                            <div class="h_nav">
-                                                <h4>Submenu3</h4>
-
-                                                <ul>
-                                                    <li><a href="product.html">Shirts</a></li>
-                                                    <li><a href="product.html">Shoes, Boots & Trainers</a></li>
-                                                    <li><a href="product.html">Sunglasses</a></li>
-                                                    <li><a href="product.html">Sweatpants</a></li>
-                                                    <li><a href="product.html">Swimwear</a></li>
-                                                    <li><a href="product.html">Trousers & Chinos</a></li>
-
-                                                </ul>
-
-                                            </div>
-                                        </div>
-                                        <div class="col1">
-                                            <div class="h_nav">
-                                                <h4>Submenu4</h4>
-                                                <ul>
-                                                    <li><a href="product.html">T-Shirts</a></li>
-                                                    <li><a href="product.html">Underwear & Socks</a></li>
-                                                    <li><a href="product.html">Vests</a></li>
-                                                    <li><a href="product.html">Jackets & Coats</a></li>
-                                                    <li><a href="product.html">Jeans</a></li>
-                                                    <li><a href="product.html">Jewellery</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col1 col5">
-                                            <img src="images/me1.png" class="img-responsive" alt="">
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                            </li>
+                            <li><a class="color" href="index.php">Accueil</a></li>
+                            <li><a class="color" href="produits_femme.php">Femmes</a></li>
+                            <li><a class="color" href="produits_hommes.php">Hommes</a></li>
                             <li><a class="color3" href="product.html">Sale</a></li>
                             <li><a class="color4" href="404.html">About</a></li>
-                            <li><a class="color5" href="typo.html">Short Codes</a></li>
                             <li><a class="color6" href="contact.php">Contact</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
@@ -290,11 +167,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div id="small-dialog" class="mfp-hide">
                     <div class="search-top">
                         <div class="login-search">
-                            <input type="submit" value="">
-                            <input type="text" value="Search.." onfocus="this.value = '';"
-                                   onblur="if (this.value == '') {this.value = 'Search..';}">
+                            <form action="recherche.php" method="post">
+                                <input name="sub_recherche" type="submit" value="">
+                                <input name="recherche" type="text" placeholder="Rechercher ...">
+                            </form>
+
+
                         </div>
-                        <p>Shopin</p>
+                        <p class="center-block">Shopin</p>
                     </div>
                 </div>
                 <script>

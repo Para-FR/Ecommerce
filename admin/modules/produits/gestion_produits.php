@@ -18,9 +18,15 @@ function do_action_produit($action)
         $element = $_GET['element'];
 
         if (!empty($element)) {
-            executeRequete("DELETE FROM produit WHERE id_produit=$element");
-            $suppression = '<strong>Supprimé !</strong><br> Produit Supprimé';
-            return $suppression;
+            $verif_exist = executeRequete("SELECT * FROM details_commande WHERE id_produit=$element");
+            if ($verif_exist->num_rows > 0){
+                $erreur_suppression = '<strong>Erreur !</strong><br> Suppression impossible, un client contient ce produit dans son panier';
+                return $erreur_suppression;
+            }else{
+                executeRequete("DELETE FROM produit WHERE id_produit=$element");
+                $suppression = '<strong>Supprimé !</strong><br> Produit Supprimé';
+                return $suppression;
+            }
         }
     }
     if ($action == 'modifier') {
@@ -72,7 +78,7 @@ if (isset($_POST['sub_add_produit'])) {
     }
     if(!empty($_FILES['photo_produit']['name']) && !isset($erreur)) {
         $nom_photo = $_POST['reference_produit'].'_'.$_FILES['photo_produit']['name'];
-        $photo_bdd = "../../../uploads/$nom_photo";
+        $photo_bdd = "./uploads/$nom_photo";
         $photo_dossier = "../../../uploads/$nom_photo";
         !copy($_FILES['photo_produit']['tmp_name'], "../../../uploads/$nom_photo$nom_photo");
     } else {
@@ -122,8 +128,11 @@ if (isset($_POST['sub_modifier_produit'])) {
     }
 }
 // SI l'action est définie et qu'elle n'est pas vide
-if (isset($_GET['action']) && !empty($_GET['action'])) {
+if (isset($_GET['action']) && !empty($_GET['action']) && $_GET['action'] == 'modifier') {
     $test = do_action_produit($_GET['action']);
+}
+if (isset($_GET['action']) && !empty($_GET['action']) && $_GET['action'] == 'supprimer') {
+    $suppression = do_action_produit($_GET['action']);
 }
 else{
     $defaut = do_action_produit('ajouter');
@@ -626,6 +635,12 @@ else{
                     <?php if (isset($suppression) && !empty($suppression)) { ?>
                         <div class="alert alert-danger center" role="alert">
                             <?php echo $suppression ?>
+                        </div>
+                    <?php } ?>
+
+                    <?php if (isset($erreur_suppression) && !empty($erreur_suppression)) { ?>
+                        <div class="alert alert-danger center" role="alert">
+                            <?php echo $erreur_suppression ?>
                         </div>
                     <?php } ?>
                     <div class="box-tools pull-right">
