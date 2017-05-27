@@ -11393,7 +11393,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sSearch": "Search:",
+			"sSearch": "Recherche:",
 	
 	
 			/**

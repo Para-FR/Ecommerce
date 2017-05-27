@@ -221,5 +221,6 @@
 <!-- FastClick -->
 <script src="../../plugins/fastclick/fastclick.js"></script>
 <script src="../../plugins/chartjs/Chart.min.js"></script>
+
 </body>
 </html>

@@ -61,6 +61,22 @@ from commande INNER JOIN membre on commande.id_membre = membre.id_membre WHERE i
         $livree = 'commande livrée';
         if (!empty($element)) {
             executeRequete("UPDATE commande SET etat='" . $livree . "' WHERE id_commande='" . $_GET['element'] . "'");
+            $req_info_commande_client = executeRequete("SELECT id_commande, etat, nom, prenom, email FROM commande 
+            INNER JOIN membre ON commande.id_membre = membre.id_membre WHERE id_commande='$element'");
+            $info_commande_client = $req_info_commande_client->fetch_assoc();
+            $headers  = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=utf-8';
+            $msg  =  'Bonjour '.$info_commande_client['nom']." ".$info_commande_client['prenom'].',<br />';
+            $msg .=  'Le statut de votre commande est désormais :' . $info_commande_client['etat'];
+            $msg .=  "Connectez vous pour suivre l'avancement de votre commande : <a href=\"http://ecommercemai2017:8082/login\"> ICI </a>";
+            $objet = 'Votre Commande n°' . $info_commande_client['id_commande'] .'vient d\'être livrée';
+            $livraison_mail ='';
+            $mail_livraison_send = mail($info_commande_client['email'], $objet, $msg, $headers);
+            if ($mail_livraison_send){
+                $livraison_mail .= '<strong>Succès !</strong><br> Le mail a bien été envoyé au client';
+            }else{
+                $livraison_mail .= '<strong>Erreur !</strong><br> Le mail n\'a pas été envoyé';
+            }
         }
     }
     if ($action == 'traitement') {
@@ -68,6 +84,22 @@ from commande INNER JOIN membre on commande.id_membre = membre.id_membre WHERE i
         $traitement = 'commande en cours de traitement';
         if (!empty($element)) {
             executeRequete("UPDATE commande SET etat='" . $traitement . "' WHERE id_commande='" . $_GET['element'] . "'");
+            $req_info_commande_client = executeRequete("SELECT id_commande, etat, nom, prenom, email FROM commande 
+            INNER JOIN membre ON commande.id_membre = membre.id_membre WHERE id_commande='$element'");
+            $info_commande_client = $req_info_commande_client->fetch_assoc();
+            $headers  = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=utf-8';
+            $msg  =  'Bonjour '.$info_commande_client['nom']." ".$info_commande_client['prenom'].',<br />';
+            $msg .=  'Le statut de votre commande est désormais :' . $info_commande_client['etat'];
+            $msg .=  "Connectez vous pour suivre l'avancement de votre commande : <a href=\"http://ecommercemai2017:8082/login\"> ICI </a>";
+            $objet = 'Votre Commande n°' . $info_commande_client['id_commande'] .'est en cours de traitement';
+            $livraison_mail ='';
+            $mail_livraison_send = mail($info_commande_client['email'], $objet, $msg, $headers);
+            if ($mail_livraison_send){
+                $livraison_mail .= '<strong>Succès !</strong><br> Le mail a bien été envoyé au client';
+            }else{
+                $livraison_mail .= '<strong>Erreur !</strong><br> Le mail n\'a pas été envoyé';
+            }
         }
     }
 }
@@ -177,11 +209,12 @@ if (isset($_POST['sub_user'])) {
                 <?php
                 $return = '';
                 $tableau = executeRequete("SELECT id_commande, id_membre, montant, date_enregistrement, etat FROM commande");
-                echo '<table class="table table-bordered"> <tr class="center">';
+                echo '<table id="commandes" cellspacing="0" class="table table-bordered display"> <thead><tr class="center">';
                 while ($colonne = $tableau->fetch_field()) {
                     echo '<th class="center text-center">' . ucfirst($colonne->name) . '</th>';
                 }
                 echo '<th class="center">Action</th>';
+                echo '</thead>';
                 echo "</tr>";
                 while ($ligne = $tableau->fetch_assoc()) {
 
@@ -296,5 +329,12 @@ if (isset($_POST['sub_user'])) {
         <!-- /.content-wrapper -->
     </section>
 </div>
+<script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#commandes').DataTable();
+    } );
+</script>
 
 <?php require_once('../../includes/footer.php'); ?>

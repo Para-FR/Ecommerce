@@ -656,12 +656,13 @@ else{
                     <?php
                     $return = '';
                     $tableau = executeRequete("SELECT * FROM produit");
-                    echo '<table class="table table-bordered"> <tr class="center">';
+                    echo '<table id="produits" cellspacing="0" class="table table-bordered display"> <thead> <tr class="center">';
                     while ($colonne = $tableau->fetch_field()) {
                         echo '<th class="center text-center">' . ucfirst($colonne->name) . '</th>';
                     }
                     echo '<th class="center">Modification</th>';
                     echo '<th class="center">Suppression</th>';
+                    echo '</thead>';
                     echo "</tr>";
                     while ($ligne = $tableau->fetch_assoc()) {
                         echo '<tr>';
@@ -686,5 +687,12 @@ else{
         </section>
     </div>
     <!-- /.content-wrapper -->
+    <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#produits').DataTable();
+        } );
+    </script>
 
 <?php require_once('../../includes/footer.php'); ?>
